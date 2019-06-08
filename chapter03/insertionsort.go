@@ -16,9 +16,11 @@ func InsertionSort(A []int, n int) {
 		// Start checking backwards from the i-1 element, all the way to 0th.
 		j := i - 1
 
-		// Once the element right before is found to be bigger than key,
+		// Once the element right before is found to be smaller than key,
 		// we can stop since we already know that A[0] to A[j] is already sorted
-		// throughout previous iterations.
+		// throughout previous iterations so all the elements from 0 to j are
+		// smaller than key. We can also stop when j becomes smaller than 0
+		// since there won't be any elements in j < 0.
 		for j >= 0 && A[j] > key {
 			// Otherwise, keep shifting values to the right to
 			// make a room for key
