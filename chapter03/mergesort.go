@@ -50,6 +50,9 @@ func merge(A []float64, p int, q int, r int) {
 	i := 0
 	j := 0
 
+	// Copying elements from B and C to A[p:r+1]
+	// In each iteration, we copy back the smallest remaining element
+	// to the next position in A[p:r+1]
 	for k := p; k <= r; k++ {
 		if B[i] <= C[j] {
 			A[k] = B[i]
