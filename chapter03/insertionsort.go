@@ -13,7 +13,8 @@ func InsertionSort(A []int, n int) {
 		// Original value in the ith element
 		key := A[i]
 
-		// Start checking backwards from the i-1 element, all the way to 0th.
+		// Start checking backwards from the i-1 element (the one right before),
+		// all the way to 0th.
 		j := i - 1
 
 		// Once the element right before is found to be smaller than key,
