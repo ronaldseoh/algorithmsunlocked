@@ -3,7 +3,7 @@
 package chapter03
 
 // BinarySearch is an implementation of binary search algorithm.
-func BinarySearch(A []int, n int, x int) int {
+func BinarySearch(A []float64, n int, x float64) int {
 
 	var p = 0
 	var r = n - 1

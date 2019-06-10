@@ -3,7 +3,7 @@
 package chapter03
 
 // InsertionSort is an implementation of insertion sort algorithm.
-func InsertionSort(A []int, n int) {
+func InsertionSort(A []float64, n int) {
 
 	// Starting from the second element, sort elements among the first
 	// (i+1) items. For example, we sort the first 2 elements in the first iteration,

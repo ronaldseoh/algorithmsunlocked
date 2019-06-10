@@ -1,9 +1,9 @@
-// Package chapter02 contains 
+// Package chapter02 contains
 // implementations of the algorithms introduced in Chapter 2.
 package chapter02
 
 // Factorial calculates the values of n!
-func Factorial(n int) int {
+func Factorial(n int64) int64 {
 
 	if n == 0 {
 		return 1

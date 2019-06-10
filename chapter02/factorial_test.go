@@ -4,13 +4,13 @@ import "testing"
 
 func TestFactorial(t *testing.T) {
 
-	testValue1 := 5
+	var testValue1 int64 = 5
 
-	testValue2 := 10
+	var testValue2 int64 = 10
 
-	const testExpected1 int = 120
+	const testExpected1 int64 = 120
 
-	const testExpected2 int = 3628800
+	const testExpected2 int64 = 3628800
 
 	testResult1 := Factorial(testValue1)
 

@@ -1,4 +1,4 @@
-// Package chapter02 contains 
+// Package chapter02 contains
 // implementations of the algorithms introduced in Chapter 2.
 package chapter02
 
@@ -6,7 +6,7 @@ package chapter02
 // where the search terminates once the value is found,
 // rather than going through the whole array
 // regardless of whether the value was found or not.
-func BetterLinearSearch(A []int, n int, x int) int {
+func BetterLinearSearch(A []float64, n int, x float64) int {
 
 	for i := 0; i < n; i++ {
 		if A[i] == x {

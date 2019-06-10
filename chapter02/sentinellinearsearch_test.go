@@ -6,11 +6,11 @@ func TestSentinelLinearSearch(t *testing.T) {
 
 	const testArrayLength int = 4
 
-	testArray := []int{9001, 9333, 212, 33}
+	testArray := []float64{9001, 9333, 212, 33}
 
-	testValue1 := 212
+	var testValue1 float64 = 212
 
-	testValue2 := 10000
+	var testValue2 float64 = 10000
 
 	const testExpected1 int = 2
 

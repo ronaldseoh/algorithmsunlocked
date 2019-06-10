@@ -3,7 +3,7 @@
 package chapter03
 
 // RecursiveBinarySearch is a recursive version of selection sort algorithm.
-func RecursiveBinarySearch(A []int, p int, r int, x int) int {
+func RecursiveBinarySearch(A []float64, p int, r int, x float64) int {
 
 	// The search should stop when p > r.
 	// This means x was not found in A.

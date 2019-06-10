@@ -6,11 +6,11 @@ func TestBinarySearch(t *testing.T) {
 
 	const testArrayLength int = 4
 
-	testArray := []int{33, 212, 9001, 9333}
+	testArray := []float64{33, 212, 9001, 9333}
 
-	testValue1 := 212
+	var testValue1 float64 = 212
 
-	testValue2 := 10000
+	var testValue2 float64 = 10000
 
 	const testExpected1 int = 1
 

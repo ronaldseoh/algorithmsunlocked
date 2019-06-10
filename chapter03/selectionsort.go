@@ -3,7 +3,7 @@
 package chapter03
 
 // SelectionSort is an implementation of selection sort algorithm.
-func SelectionSort(A []int, n int) {
+func SelectionSort(A []float64, n int) {
 
 	for i := 0; i < n; i++ {
 		// Initially, we consider A[i] to be the smallest among A[i] ~ A[n-1].
