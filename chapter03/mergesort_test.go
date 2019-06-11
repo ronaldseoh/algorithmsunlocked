@@ -18,18 +18,18 @@ func TestMergeSort(t *testing.T) {
 	const testExpected3 float64 = 9333
 
 	if testExpected0 != testArray[0] {
-		t.Errorf("InsertionSort testArray[0]: Expected %f, Got %f", testExpected0, testArray[0])
+		t.Errorf("MergeSort testArray[0]: Expected %f, Got %f", testExpected0, testArray[0])
 	}
 
 	if testExpected1 != testArray[1] {
-		t.Errorf("InsertionSort testArray[1]: Expected %f, Got %f", testExpected1, testArray[1])
+		t.Errorf("MergeSort testArray[1]: Expected %f, Got %f", testExpected1, testArray[1])
 	}
 
 	if testExpected2 != testArray[2] {
-		t.Errorf("InsertionSort testArray[2]: Expected %f, Got %f", testExpected2, testArray[2])
+		t.Errorf("MergeSort testArray[2]: Expected %f, Got %f", testExpected2, testArray[2])
 	}
 
 	if testExpected3 != testArray[3] {
-		t.Errorf("InsertionSort testArray[3]: Expected %f, Got %f", testExpected3, testArray[3])
+		t.Errorf("MergeSort testArray[3]: Expected %f, Got %f", testExpected3, testArray[3])
 	}
 }
