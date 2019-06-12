@@ -14,7 +14,7 @@ func QuickSort(A []float64, p int, r int) {
 
 // partition organizes the given subarray A[p..r] into groups
 // to facilitate further sorting of the subarray. We choose A[r]
-// to be the 'pivot' of the subarray, and 'partititon' elements
+// to be the 'pivot' of the subarray, and 'partition' elements
 // based on this pivot. The final partitioned array should be
 // organized into groups L, P, and R where they appear in this exact order
 // in the array. L contains elements smaller or equal to the pivot.
