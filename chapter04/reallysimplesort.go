@@ -9,7 +9,7 @@ package chapter04
 // and we don't need to care about satellite data.
 // We can see that the algorithm would take only Theta(n) time instead of
 // Theta(n * lg n).
-func ReallySimpleSort(A []float64, n int) {
+func ReallySimpleSort(A []int, n int) {
 
 	k := 0
 
