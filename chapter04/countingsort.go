@@ -6,7 +6,7 @@ package chapter04
 // Given that we have n elements in A where they are known to
 // have values in the range of [0..m-1], we can do sorting on A
 // without ever comparing sort keys of any elements.
-// This algorithm boasts Theta(m+n) time, which beats
+// This algorithm boasts Theta(m+n) time, which could beat (depending on m though)
 // a lower bound of Theta(n * lg n) of comparsion sort algorithms.
 // Note that this algorithm won't work if sort keys are not integers.
 func CountingSort(A []int, n int, m int) []int {
