@@ -27,15 +27,21 @@ func CountingSort(A []int, n int, m int) []int {
 
 func rearrange(A []int, less []int, n int, m int) []int {
 
-	B := make([]int, n-1)
-	next := make([]int, m)
+	// B stores the elements of A in sorted order.
+	B := make([]int, n)
 
 	// next contains where the next encountered elements
 	// with the value j should go in A.
+	// next is supposed to be declared with an exact length of m, but I made it to be m+2
+	// so that I can directly count elements in less[key] without confusingly changing
+	// indexes.
+	next := make([]int, m+2)
+
 	for j := 0; j <= m-1; j++ {
 		next[j] = less[j] + 1
 	}
 
+	// Storing elements to B in sorted order
 	for i := 0; i < n; i++ {
 		key := A[i]
 		index := next[key]
@@ -48,7 +54,11 @@ func rearrange(A []int, less []int, n int, m int) []int {
 
 func countKeysLess(equal []int, m int) []int {
 
-	less := make([]int, m)
+	// less stores the # of elements with values less than each index.
+	// This is supposed to be declared with an exact length of m, but I made it to be m+2
+	// so that I can directly count elements in less[key] without confusingly changing
+	// indexes.
+	less := make([]int, m+2)
 
 	less[0] = 0
 
@@ -61,7 +71,11 @@ func countKeysLess(equal []int, m int) []int {
 
 func countKeysEqual(A []int, n int, m int) []int {
 
-	equal := make([]int, m)
+	// equal stores the # of elements with values equal to each index.
+	// This is supposed to be declared with an exact length of m, but I made it to be m+2
+	// so that I can directly count elements in equal[key] without confusingly changing
+	// indexes.
+	equal := make([]int, m+2)
 
 	for i := 0; i <= n-1; i++ {
 		key := A[i]
