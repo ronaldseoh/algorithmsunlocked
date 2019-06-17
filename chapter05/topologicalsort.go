@@ -39,11 +39,11 @@ func TopologicalSort(G *Dag) []int {
 
 		linearOrder = append(linearOrder, vertex)
 
-		for _, vertex := range G.Edges[vertex] {
-			inDegree[vertex]--
+		for _, destination := range G.Edges[vertex] {
+			inDegree[destination]--
 
-			if inDegree[vertex] == 0 {
-				next.PushFront(vertex)
+			if inDegree[destination] == 0 {
+				next.PushFront(destination)
 			}
 		}
 	}
