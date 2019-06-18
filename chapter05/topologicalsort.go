@@ -8,8 +8,9 @@ import (
 
 // Dag defines a structure to store directed acyclic graphs (DAG).
 type Dag struct {
-	Length int
-	Edges  map[int][]int
+	Length  int
+	Edges   map[int][]int
+	Weights map[int]map[int]int
 }
 
 // TopologicalSort produces a single linear order given a directed acyclic graph.
