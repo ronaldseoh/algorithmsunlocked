@@ -8,8 +8,12 @@ package chapter05
 // we require G to be acyclic.
 func DagShortestPaths(G *Dag, sourceVertex int) ([]int, []int) {
 
+	// In order to make the algorithm function properly,
+	// we need a topologically sorted linear order of all the vertices.
 	l := TopologicalSort(G)
 
+	// shortest store the weight values of the shortest paths from
+	// sourceVertex to other vertices in G.
 	shortest := make([]int, G.Length)
 
 	// predecessor of v on a shortest path from s to v: a vertex u
