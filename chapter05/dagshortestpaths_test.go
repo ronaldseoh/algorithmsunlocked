@@ -140,7 +140,8 @@ func TestDagShortestPaths(t *testing.T) {
 
 	testDAG.Weights[18][19] = 0
 
-	shortest := DagShortestPaths(testDAG, 0)
+	shortest, pred := DagShortestPaths(testDAG, 0)
 
 	fmt.Println(shortest)
+	fmt.Println(pred)
 }
