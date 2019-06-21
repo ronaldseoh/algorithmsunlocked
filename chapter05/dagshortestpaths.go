@@ -36,14 +36,14 @@ func DagShortestPaths(G *Dag, sourceVertex int) ([]int, []int) {
 	// Apply relaxation steps to each vertex and their directed edges.
 	for _, vertex := range l {
 		for _, destination := range G.Edges[vertex] {
-			relax(G, shortest, pred, vertex, destination)
+			Relax(G, shortest, pred, vertex, destination)
 		}
 	}
 
 	return shortest, pred
 }
 
-func relax(G *Dag, shortest []int, pred []int, u int, v int) {
+func Relax(G *Dag, shortest []int, pred []int, u int, v int) {
 	// If visiting v through u is found to be a shorter route than
 	// the previously known shortest route, then assign the newly known
 	// shortest weight to shortest[v], and make u to be predecessor of v.

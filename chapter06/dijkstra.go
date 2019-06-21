@@ -54,19 +54,9 @@ func Dijkstra(G *chapter05.Dag, sourceVertex int) ([]int, []int) {
 		shortestVertex := Q.Remove(currentShortest).(int)
 
 		for _, destination := range G.Edges[shortestVertex] {
-			relax(G, shortest, pred, shortestVertex, destination)
+			chapter05.Relax(G, shortest, pred, shortestVertex, destination)
 		}
 	}
 
 	return shortest, pred
-}
-
-func relax(G *chapter05.Dag, shortest []int, pred []int, u int, v int) {
-	// If visiting v through u is found to be a shorter route than
-	// the previously known shortest route, then assign the newly known
-	// shortest weight to shortest[v], and make u to be predecessor of v.
-	if shortest[u]+G.Weights[u][v] < shortest[v] {
-		shortest[v] = shortest[u] + G.Weights[u][v]
-		pred[v] = u
-	}
 }
