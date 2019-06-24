@@ -8,7 +8,7 @@ import (
 	"github.com/ronaldseoh/algorithmsunlocked/chapter05"
 )
 
-// Dijkstra
+// Dijkstra is an implementation of Dijkstra's algorithm.
 func Dijkstra(G *chapter05.DiGraph, sourceVertex int) ([]int, []int) {
 
 	// shortest store the weight values of the shortest paths from
@@ -32,6 +32,8 @@ func Dijkstra(G *chapter05.DiGraph, sourceVertex int) ([]int, []int) {
 		}
 	}
 
+	// Initialize Q, a list of vertices for which the final shortest and pred
+	// values are not yet known.
 	Q := list.New()
 
 	for i := 0; i < G.Length; i++ {
@@ -39,11 +41,13 @@ func Dijkstra(G *chapter05.DiGraph, sourceVertex int) ([]int, []int) {
 	}
 
 	// Apply relaxation steps to each vertex and their directed edges.
+	// Continue the loop as long as Q isn't empty
 	for Q.Back() != nil {
 
 		shortestValue := int(^uint(0) >> 1)
 		currentShortest := Q.Front()
 
+		// Find the vertex in Q with the smallest shortest[v]
 		for vertex := Q.Front(); vertex != nil; vertex = vertex.Next() {
 			if shortest[vertex.Value.(int)] <= shortestValue {
 				shortestValue = shortest[vertex.Value.(int)]
@@ -51,8 +55,10 @@ func Dijkstra(G *chapter05.DiGraph, sourceVertex int) ([]int, []int) {
 			}
 		}
 
+		// Remove the shortest vertex found from Q
 		shortestVertex := Q.Remove(currentShortest).(int)
 
+		// Relax all the edges that depart from the removed shortest vertex
 		for _, destination := range G.Edges[shortestVertex] {
 			chapter05.Relax(G, shortest, pred, shortestVertex, destination)
 		}
