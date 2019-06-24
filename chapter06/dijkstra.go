@@ -33,7 +33,7 @@ func Dijkstra(G *chapter05.DiGraph, sourceVertex int) ([]int, []int) {
 	}
 
 	// Initialize Q, a list of vertices for which the final shortest and pred
-	// values are not yet known.
+	// values are not yet known, with all the vertices in G.
 	Q := list.New()
 
 	for i := 0; i < G.Length; i++ {
