@@ -43,6 +43,10 @@ func DagShortestPaths(G *DiGraph, sourceVertex int) ([]int, []int) {
 	return shortest, pred
 }
 
+// Relax is a procedure used to determine whether a node u, which would be
+// a node previous to v in topological order, should be part of the shortest path
+// to v. We determine whether the edge (u, v) should be the last edge
+// of the shortest path to v.
 func Relax(G *DiGraph, shortest []int, pred []int, u int, v int) {
 	// If visiting v through u is found to be a shorter route than
 	// the previously known shortest route, then assign the newly known
