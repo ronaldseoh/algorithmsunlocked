@@ -6,8 +6,8 @@ import (
 	"container/list"
 )
 
-// Dag defines a structure to store directed acyclic graphs (DAG).
-type Dag struct {
+// DiGraph defines a structure to store directed graphs.
+type DiGraph struct {
 	Length  int
 	Edges   map[int][]int
 	Weights map[int]map[int]int
@@ -15,7 +15,7 @@ type Dag struct {
 
 // TopologicalSort produces a single linear order given a directed acyclic graph.
 // Note that the linear order produced by a topological sort is not necessarily unique.
-func TopologicalSort(G *Dag) []int {
+func TopologicalSort(G *DiGraph) []int {
 
 	// Create an array (slice) for storing
 	// each vertex's in-degree (the # of edges entering a vertex).

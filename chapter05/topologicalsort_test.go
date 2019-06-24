@@ -9,7 +9,7 @@ func TestTopologicalSort(t *testing.T) {
 
 	const testDAGLength int = 14
 
-	testDAG := &Dag{
+	testDAG := &DiGraph{
 		Length: testDAGLength,
 		Edges:  make(map[int][]int),
 	}

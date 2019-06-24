@@ -11,7 +11,7 @@ func TestDijkstra(t *testing.T) {
 
 	const testDAGLength int = 5
 
-	testDAG := &chapter05.Dag{
+	testDAG := &chapter05.DiGraph{
 		Length:  testDAGLength,
 		Edges:   make(map[int][]int),
 		Weights: make(map[int]map[int]int),

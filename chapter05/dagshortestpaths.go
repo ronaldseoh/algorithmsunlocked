@@ -6,7 +6,7 @@ package chapter05
 // all the other vertices in a graph structure G.
 // This is a special case of shortest path algorithm, where
 // we require G to be acyclic.
-func DagShortestPaths(G *Dag, sourceVertex int) ([]int, []int) {
+func DagShortestPaths(G *DiGraph, sourceVertex int) ([]int, []int) {
 
 	// In order to make the algorithm function properly,
 	// we need a topologically sorted linear order of all the vertices.
@@ -43,7 +43,7 @@ func DagShortestPaths(G *Dag, sourceVertex int) ([]int, []int) {
 	return shortest, pred
 }
 
-func Relax(G *Dag, shortest []int, pred []int, u int, v int) {
+func Relax(G *DiGraph, shortest []int, pred []int, u int, v int) {
 	// If visiting v through u is found to be a shorter route than
 	// the previously known shortest route, then assign the newly known
 	// shortest weight to shortest[v], and make u to be predecessor of v.

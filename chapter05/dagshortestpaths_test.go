@@ -9,7 +9,7 @@ func TestDagShortestPaths(t *testing.T) {
 
 	const testDAGLength int = 20
 
-	testDAG := &Dag{
+	testDAG := &DiGraph{
 		Length:  testDAGLength,
 		Edges:   make(map[int][]int),
 		Weights: make(map[int]map[int]int),

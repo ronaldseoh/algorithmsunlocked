@@ -9,7 +9,7 @@ import (
 )
 
 // Dijkstra
-func Dijkstra(G *chapter05.Dag, sourceVertex int) ([]int, []int) {
+func Dijkstra(G *chapter05.DiGraph, sourceVertex int) ([]int, []int) {
 
 	// shortest store the weight values of the shortest paths from
 	// sourceVertex to other vertices in G.
