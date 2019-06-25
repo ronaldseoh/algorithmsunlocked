@@ -14,8 +14,9 @@ type Element struct {
 // with a binary heap.
 type PriorityQueue interface {
 	Insert(element *Element)
-	ExtractMin() interface{}
+	ExtractMin() *Element
 	DecreaseKey(key *Element)
+	GetLength() int
 }
 
 // HeapSort is an implementation of heap sort algorithm.

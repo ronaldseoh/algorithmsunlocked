@@ -19,36 +19,17 @@ type binaryHeapPriorityQueue struct {
 }
 
 func (Q *binaryHeapPriorityQueue) Insert(element *Element) {
+
+	element.Index = len(Q.Data)
+	Q.Data = append(Q.Data, element)
+
 	// If the queue was empty, we just add key as a first element
-	if len(Q.Data) == 0 {
-		element.Index = len(Q.Data)
-		Q.Data = append(Q.Data, element)
-	} else {
-		// If there was at least one existing element,
-		// we need to check for heap property and swap elements if needed
-		heapPropertySatisfied := false
-		currentParentIndex := len(Q.Data) / 2
-
-		for !heapPropertySatisfied {
-			// If the parent node has a bigger key than the new element,
-			// then just add that key as a new element, and add new key
-			// to the parent node's place instead.
-			if Q.Data[currentParentIndex].Key > element.Key {
-				element.Index = Q.Data[currentParentIndex].Index
-				Q.Data[currentParentIndex].Index = len(Q.Data)
-
-				Q.Data = append(Q.Data, Q.Data[currentParentIndex])
-				Q.Data[currentParentIndex] = element
-
-				currentParentIndex = currentParentIndex / 2
-			} else {
-				heapPropertySatisfied = true
-			}
-		}
+	if len(Q.Data) > 0 {
+		Q.satisfyHeapProperty(len(Q.Data) / 2)
 	}
 }
 
-func (Q *binaryHeapPriorityQueue) ExtractMin() interface{} {
+func (Q *binaryHeapPriorityQueue) ExtractMin() *Element {
 	element := Q.Data[0]
 
 	Q.Data[0] = Q.Data[len(Q.Data)-1]
@@ -113,4 +94,8 @@ func (Q *binaryHeapPriorityQueue) satisfyHeapProperty(parentIndex int) {
 
 func (Q *binaryHeapPriorityQueue) DecreaseKey(element *Element) {
 	Q.satisfyHeapProperty(element.Index)
+}
+
+func (Q *binaryHeapPriorityQueue) GetLength() int {
+	return len(Q.Data)
 }
