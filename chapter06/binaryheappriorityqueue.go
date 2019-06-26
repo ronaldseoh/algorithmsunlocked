@@ -19,7 +19,6 @@ type binaryHeapPriorityQueue struct {
 }
 
 func (Q *binaryHeapPriorityQueue) Insert(element *Element) {
-
 	element.Index = len(Q.Data)
 	Q.Data = append(Q.Data, element)
 
@@ -31,35 +30,28 @@ func (Q *binaryHeapPriorityQueue) Insert(element *Element) {
 
 func (Q *binaryHeapPriorityQueue) ExtractMin() *Element {
 
-	if len(Q.Data) == 0 {
-		return nil
-	}
-
-	root := make([]*Element, 1)
-	copy(root, Q.Data[0:1])
+	root := Q.Data[0]
 
 	if len(Q.Data) == 1 {
 		Q.Data[0] = nil
 		Q.Data = Q.Data[:0]
 	} else {
-		copy(Q.Data[0:], Q.Data[1:])
-		Q.Data[len(Q.Data)-1] = nil
-		Q.Data = Q.Data[:len(Q.Data)-1]
+		Q.Data = Q.Data[1:]
 
-		newRootKey := Q.Data[0].Key
-		newRootValue := Q.Data[0].Value
+		newRoot := Q.Data[0]
 
-		Q.Data[0].Key = Q.Data[len(Q.Data)-1].Key
-		Q.Data[0].Value = Q.Data[len(Q.Data)-1].Value
+		Q.Data[0] = Q.Data[len(Q.Data)-1]
+		Q.Data[0].Index = 0
 
-		Q.Data[len(Q.Data)-1].Key = newRootKey
-		Q.Data[len(Q.Data)-1].Value = newRootValue
+		Q.Data[len(Q.Data)-1] = newRoot
+		Q.Data[len(Q.Data)-1].Index = len(Q.Data) - 1
+
 		// If there was at least one existing element,
 		// we need to check for heap property and swap elements if needed
 		Q.satisfyHeapProperty(0)
 	}
 
-	return root[0]
+	return root
 }
 
 func (Q *binaryHeapPriorityQueue) satisfyHeapProperty(parentIndex int) {
@@ -77,26 +69,24 @@ func (Q *binaryHeapPriorityQueue) satisfyHeapProperty(parentIndex int) {
 			if leftChildIndex < len(Q.Data) && Q.Data[parentIndex].Key > Q.Data[leftChildIndex].Key {
 				// If the left child exists & its key is smaller than the parent's,
 				// then swap the two.
-				leftChildKey := Q.Data[leftChildIndex].Key
-				leftChildValue := Q.Data[leftChildIndex].Value
+				leftChild := Q.Data[leftChildIndex]
 
-				Q.Data[leftChildIndex].Key = Q.Data[parentIndex].Key
-				Q.Data[leftChildIndex].Value = Q.Data[parentIndex].Value
+				Q.Data[leftChildIndex] = Q.Data[parentIndex]
+				Q.Data[leftChildIndex].Index = leftChildIndex
 
-				Q.Data[parentIndex].Key = leftChildKey
-				Q.Data[parentIndex].Value = leftChildValue
+				Q.Data[parentIndex] = leftChild
+				Q.Data[parentIndex].Index = parentIndex
 			} else if rightChildIndex < len(Q.Data) && Q.Data[parentIndex].Key > Q.Data[rightChildIndex].Key {
 				// If the right child exists & its key is smaller than the parent's,
 				// then swap the two. We can safely assume that there's no case where
 				// the left child doesn't exist but the right does, since Q is a binary heap.
-				rightChildKey := Q.Data[rightChildIndex].Key
-				rightChildValue := Q.Data[rightChildIndex].Value
+				rightChild := Q.Data[rightChildIndex]
 
-				Q.Data[rightChildIndex].Key = Q.Data[parentIndex].Key
-				Q.Data[rightChildIndex].Value = Q.Data[parentIndex].Value
+				Q.Data[rightChildIndex] = Q.Data[parentIndex]
+				Q.Data[rightChildIndex].Index = rightChildIndex
 
-				Q.Data[parentIndex].Key = rightChildKey
-				Q.Data[parentIndex].Value = rightChildValue
+				Q.Data[parentIndex] = rightChild
+				Q.Data[parentIndex].Index = parentIndex
 			} else {
 				// if the heap property seems to have been met for parentIndex
 				// and its children, then we also need to make sure the property holds
@@ -113,7 +103,7 @@ func (Q *binaryHeapPriorityQueue) satisfyHeapProperty(parentIndex int) {
 }
 
 func (Q *binaryHeapPriorityQueue) DecreaseKey(element *Element) {
-	Q.satisfyHeapProperty(element.Index)
+	Q.satisfyHeapProperty(0)
 }
 
 func (Q *binaryHeapPriorityQueue) GetLength() int {
