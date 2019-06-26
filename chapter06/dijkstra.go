@@ -31,15 +31,18 @@ func Dijkstra(G *DiGraph, sourceVertex int) ([]int, []int) {
 	// except for sourceVertex itself.
 	// (max integer value here for implementation.)
 	for i := 0; i < G.Length; i++ {
-		if i != sourceVertex {
-			shortest[i] = int(^uint(0) >> 1) // maximum value allowed for signed integers
-
-			G.Vertices[i].Key = int(^uint(0) >> 1)
-			Q.Insert(G.Vertices[i])
-		} else {
+		if i == sourceVertex {
+			// if i == sourceVerttex, sp(s, s) == 0
 			shortest[i] = 0
 
+			// While the original pseudocode only uses shortest[] to keep track of
+			// sp(s, v), we need to store sp(s, v) separately to G.Vertices[i] as well
+			// before adding them to Q so that Q can use them as keys for sorting.
 			G.Vertices[i].Key = 0
+			Q.Insert(G.Vertices[i])
+		} else {
+			shortest[i] = int(^uint(0) >> 1) // maximum value allowed for signed integers
+			G.Vertices[i].Key = int(^uint(0) >> 1)
 			Q.Insert(G.Vertices[i])
 		}
 	}
@@ -52,10 +55,15 @@ func Dijkstra(G *DiGraph, sourceVertex int) ([]int, []int) {
 
 		// Relax all the edges that depart from the removed shortest vertex
 		for _, destination := range G.Edges[shortestVertex] {
+			// record current value of shortest[v] for comparison
 			currentShortestValue := shortest[destination.Value.(int)]
+
 			Relax(G, shortest, pred, shortestVertex.Value.(int), destination.Value.(int))
 
+			// if there was a change in shortest[v], that apply the change to
+			// destionation.Key as well.
 			if currentShortestValue != shortest[destination.Value.(int)] {
+				destination.Key = shortest[destination.Value.(int)]
 				Q.DecreaseKey(destination)
 			}
 		}
