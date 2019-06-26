@@ -24,7 +24,7 @@ func (Q *binaryHeapPriorityQueue) Insert(element *Element) {
 
 	// If the queue was empty, we just add key as a first element
 	if len(Q.Data) > 1 {
-		Q.satisfyHeapProperty((len(Q.Data) - 2) / 2)
+		Q.bubbleUp(element.Index)
 	}
 }
 
@@ -36,25 +36,60 @@ func (Q *binaryHeapPriorityQueue) ExtractMin() *Element {
 		Q.Data[0] = nil
 		Q.Data = Q.Data[:0]
 	} else {
+		// If there was at least one existing element,
+		// we need to check for heap property and swap elements if needed
+
+		// Remove the first element from Q.Data
 		Q.Data = Q.Data[1:]
 
-		newRoot := Q.Data[0]
+		// Back up the new first element
+		newFirst := Q.Data[0]
 
+		// Get the very last leaf of Q and put it in the root node
 		Q.Data[0] = Q.Data[len(Q.Data)-1]
 		Q.Data[0].Index = 0
 
-		Q.Data[len(Q.Data)-1] = newRoot
+		Q.Data[len(Q.Data)-1] = newFirst
 		Q.Data[len(Q.Data)-1].Index = len(Q.Data) - 1
 
-		// If there was at least one existing element,
-		// we need to check for heap property and swap elements if needed
-		Q.satisfyHeapProperty(0)
+		// Bubble down the new root
+		Q.bubbleDown(0)
 	}
 
 	return root
 }
 
-func (Q *binaryHeapPriorityQueue) satisfyHeapProperty(parentIndex int) {
+func (Q *binaryHeapPriorityQueue) bubbleUp(childIndex int) {
+	if childIndex >= len(Q.Data) {
+		return
+	} else if childIndex <= 0 {
+		return
+	}
+
+	heapPropertySatisfied := false
+
+	parentIndex := (childIndex - 1) / 2
+
+	for !heapPropertySatisfied {
+		// if child's key is samller than its parent's, swap.
+		if Q.Data[parentIndex].Key > Q.Data[childIndex].Key {
+			child := Q.Data[childIndex]
+
+			Q.Data[childIndex] = Q.Data[parentIndex]
+			Q.Data[childIndex].Index = childIndex
+
+			Q.Data[parentIndex] = child
+			Q.Data[parentIndex].Index = parentIndex
+		} else {
+			// Recursively check grandparent(s) as well
+			Q.bubbleUp(parentIndex)
+
+			heapPropertySatisfied = true
+		}
+	}
+}
+
+func (Q *binaryHeapPriorityQueue) bubbleDown(parentIndex int) {
 	heapPropertySatisfied := false
 
 	leftChildIndex := 2*parentIndex + 1
@@ -91,8 +126,8 @@ func (Q *binaryHeapPriorityQueue) satisfyHeapProperty(parentIndex int) {
 				// if the heap property seems to have been met for parentIndex
 				// and its children, then we also need to make sure the property holds
 				// for each child and their descedants (grandchildren) as well.
-				Q.satisfyHeapProperty(leftChildIndex)
-				Q.satisfyHeapProperty(rightChildIndex)
+				Q.bubbleDown(leftChildIndex)
+				Q.bubbleDown(rightChildIndex)
 
 				// After checks above are complete, we can now conclude that heap property
 				// holds for Q.
@@ -103,7 +138,7 @@ func (Q *binaryHeapPriorityQueue) satisfyHeapProperty(parentIndex int) {
 }
 
 func (Q *binaryHeapPriorityQueue) DecreaseKey(element *Element) {
-	Q.satisfyHeapProperty(0)
+	Q.bubbleUp(element.Index)
 }
 
 func (Q *binaryHeapPriorityQueue) GetLength() int {
