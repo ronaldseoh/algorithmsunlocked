@@ -72,6 +72,10 @@ func (Q *binaryHeapPriorityQueue) bubbleUp(childIndex int) {
 
 	for !heapPropertySatisfied {
 		// if child's key is samller than its parent's, swap.
+		// Note that we absolutely do not have to care about the child node's
+		// siblings when we do the swap; since the sibling must have a key > parent,
+		// and we are replacing the parent with even smaller key, the heap property
+		// would be maintained.
 		if Q.Data[parentIndex].Key > Q.Data[childIndex].Key {
 			child := Q.Data[childIndex]
 
