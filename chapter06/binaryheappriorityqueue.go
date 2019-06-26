@@ -161,14 +161,6 @@ func (Q *binaryHeapPriorityQueue) bubbleDown(parentIndex int) {
 				Q.Data[parentIndex] = rightChild
 				Q.Data[parentIndex].Index = parentIndex
 			} else {
-				// if the heap property seems to have been met for parentIndex
-				// and its children, then we also need to make sure the property holds
-				// for each child and their descedants (grandchildren) as well.
-				Q.bubbleDown(leftChildIndex)
-				Q.bubbleDown(rightChildIndex)
-
-				// After checks above are complete, we can now conclude that heap property
-				// holds for Q.
 				heapPropertySatisfied = true
 			}
 		}
