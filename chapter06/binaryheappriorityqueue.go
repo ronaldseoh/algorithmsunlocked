@@ -54,6 +54,8 @@ func (Q *binaryHeapPriorityQueue) ExtractMin() *Element {
 		newFirst := Q.Data[0]
 
 		// Get the very last leaf of Q and put it in the root node
+		// We take the very last element since this will allow us to
+		// retain a complete binary tree structure.
 		Q.Data[0] = Q.Data[len(Q.Data)-1]
 		Q.Data[0].Index = 0
 
