@@ -15,9 +15,13 @@ func NewBinaryHeapPriorityQueue() PriorityQueue {
 }
 
 type binaryHeapPriorityQueue struct {
-	Data []*Element
+	Data []*Element // The binary heap implementation only requires a single array (slice).
 }
 
+// Insert plugs in the new element into Q.
+// Depending on the Key assigned to the new element, it might have to be
+// 'bubbled up' to higher levels of the binary heap. Because of bubbleUp(),
+// each call of Insert() takes O(lg n) time.
 func (Q *binaryHeapPriorityQueue) Insert(element *Element) {
 	element.Index = len(Q.Data)
 	Q.Data = append(Q.Data, element)
@@ -28,6 +32,10 @@ func (Q *binaryHeapPriorityQueue) Insert(element *Element) {
 	}
 }
 
+// ExtractMin removes the first element off the queue,
+// which would have the lowest element.Key value.
+// Since we call bubbleDown() for each ExtractMin() call,
+// ExtractMin() takes O(lg n) time.
 func (Q *binaryHeapPriorityQueue) ExtractMin() *Element {
 
 	root := Q.Data[0]
@@ -49,6 +57,7 @@ func (Q *binaryHeapPriorityQueue) ExtractMin() *Element {
 		Q.Data[0] = Q.Data[len(Q.Data)-1]
 		Q.Data[0].Index = 0
 
+		// And put the backed up newFirst to the end
 		Q.Data[len(Q.Data)-1] = newFirst
 		Q.Data[len(Q.Data)-1].Index = len(Q.Data) - 1
 
@@ -59,6 +68,24 @@ func (Q *binaryHeapPriorityQueue) ExtractMin() *Element {
 	return root
 }
 
+// DecreaseKey changes the position (priority) of the given element
+// in the queue if there's a change in element.Key.
+// As with the other two methods that call bubbleUp() and bubbleDown(),
+// DecreaseKey() takes O(lg n) time.
+func (Q *binaryHeapPriorityQueue) DecreaseKey(element *Element) {
+	Q.bubbleUp(element.Index)
+}
+
+// GetLength returns the current number of element remaining in the queue.
+func (Q *binaryHeapPriorityQueue) GetLength() int {
+	return len(Q.Data)
+}
+
+// bubbleUp changes positions of elements starting from the given child node up to the root,
+// based on its index in the underlying array. Since a binary heap is a complete binary tree,
+// meaning each level of the tree has all of its nodes,
+// the time complexity of bubbleUp() would be O(lg n), as floor(lg n) would be
+// the height of a complete binary tree.
 func (Q *binaryHeapPriorityQueue) bubbleUp(childIndex int) {
 	if childIndex >= len(Q.Data) {
 		return
@@ -93,6 +120,11 @@ func (Q *binaryHeapPriorityQueue) bubbleUp(childIndex int) {
 	}
 }
 
+// bubbleDown changes positions of elements starting from the root down to leaf nodes,
+// based on its index in the underlying array. Since a binary heap is a complete binary tree,
+// meaning each level of the tree has all of its nodes,
+// the time complexity of bubbleUp() would be O(lg n), as floor(lg n) would be
+// the height of a complete binary tree.
 func (Q *binaryHeapPriorityQueue) bubbleDown(parentIndex int) {
 	heapPropertySatisfied := false
 
@@ -139,12 +171,4 @@ func (Q *binaryHeapPriorityQueue) bubbleDown(parentIndex int) {
 			}
 		}
 	}
-}
-
-func (Q *binaryHeapPriorityQueue) DecreaseKey(element *Element) {
-	Q.bubbleUp(element.Index)
-}
-
-func (Q *binaryHeapPriorityQueue) GetLength() int {
-	return len(Q.Data)
 }
