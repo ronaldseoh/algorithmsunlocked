@@ -26,6 +26,21 @@ type PriorityQueue interface {
 }
 
 // HeapSort is an implementation of heap sort algorithm.
-func HeapSort(A []float64, n int) {
+// We sort elements in A by putting them all in an empty queue Q
+// and extract them back into a new array B.
+func HeapSort(A []int, n int) []int {
 
+	Q := NewBinaryHeapPriorityQueue()
+
+	B := make([]int, n)
+
+	for i := 0; i < n; i++ {
+		Q.Insert(&Element{Value: A[i], Key: A[i]})
+	}
+
+	for i := 0; i < n; i++ {
+		B[i] = Q.ExtractMin().Value.(int)
+	}
+
+	return B
 }
