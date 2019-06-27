@@ -34,12 +34,9 @@ func BellmanFord(G *DiGraph, sourceVertex int) ([]int, []int) {
 	// Apply relaxation steps to each vertex and their directed edges, exactly n-1 times.
 	for i := 1; i <= G.Length-1; i++ {
 		for j := 0; j < G.Length; j++ {
-			// Remove the shortest vertex found from Q
-			vertex := G.Vertices[j]
-
 			// Relax all the edges that depart from the current vertex
-			for _, destination := range G.Edges[vertex] {
-				Relax(G, shortest, pred, vertex.Value.(int), destination.Value.(int))
+			for _, destination := range G.Edges[G.Vertices[j]] {
+				Relax(G, shortest, pred, G.Vertices[j].Value.(int), destination.Value.(int))
 				destination.Key = shortest[destination.Value.(int)]
 			}
 		}
