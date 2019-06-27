@@ -32,10 +32,10 @@ func FindNegativeWeightCycle(G *DiGraph, shortest []int, pred []int) *list.List 
 
 		v = G.Vertices[pred[x.Value.(int)]]
 
-		cycle.PushBack(x)
+		cycle.PushBack(x.Value.(int))
 
 		for v != x {
-			cycle.PushFront(v)
+			cycle.PushFront(v.Value.(int))
 			v = G.Vertices[pred[v.Value.(int)]]
 		}
 
