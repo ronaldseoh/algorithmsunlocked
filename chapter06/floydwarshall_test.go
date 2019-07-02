@@ -58,12 +58,12 @@ func TestFloydWarshall(t *testing.T) {
 
 		fmt.Println("shortest")
 		for _, a := range shortest[i] {
-			fmt.Print("[")
+			fmt.Print("[ ")
 			for _, b := range a {
 				if b == int(^uint(0)>>1) {
 					fmt.Print("Inf ")
 				} else {
-					fmt.Printf("%d ", b)
+					fmt.Printf("%*d ", 3, b)
 				}
 			}
 			fmt.Printf("]\n")
@@ -71,12 +71,12 @@ func TestFloydWarshall(t *testing.T) {
 
 		fmt.Println("pred")
 		for _, a := range pred[i] {
-			fmt.Print("[")
+			fmt.Print("[ ")
 			for _, b := range a {
 				if b == -1 {
-					fmt.Print("NULL ")
+					fmt.Print("Nil ")
 				} else {
-					fmt.Printf("%d  ", b)
+					fmt.Printf("%*d ", 3, b)
 				}
 			}
 			fmt.Printf("]\n")
