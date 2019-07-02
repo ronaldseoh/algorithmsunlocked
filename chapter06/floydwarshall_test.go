@@ -60,7 +60,7 @@ func TestFloydWarshall(t *testing.T) {
 		for _, a := range shortest[i] {
 			fmt.Print("[ ")
 			for _, b := range a {
-				if b == int(^uint(0)>>1) {
+				if b == int(^uint(0)>>1)/2 {
 					fmt.Print("Inf ")
 				} else {
 					fmt.Printf("%*d ", 3, b)
