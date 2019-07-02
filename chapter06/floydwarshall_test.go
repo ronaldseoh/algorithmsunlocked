@@ -53,6 +53,36 @@ func TestFloydWarshall(t *testing.T) {
 
 	shortest, pred := FloydWarshall(testDAG)
 
-	fmt.Println(shortest)
-	fmt.Println(pred)
+	for i := -1; i < testDAG.Length; i++ {
+		fmt.Println(i)
+
+		fmt.Println("shortest")
+		for _, a := range shortest[i] {
+			fmt.Print("[")
+			for _, b := range a {
+				if b == int(^uint(0)>>1) {
+					fmt.Print("Inf ")
+				} else {
+					fmt.Printf("%d ", b)
+				}
+			}
+			fmt.Printf("]\n")
+		}
+
+		fmt.Println("pred")
+		for _, a := range pred[i] {
+			fmt.Print("[")
+			for _, b := range a {
+				if b == -1 {
+					fmt.Print("NULL ")
+				} else {
+					fmt.Printf("%d  ", b)
+				}
+			}
+			fmt.Printf("]\n")
+		}
+
+		fmt.Println()
+	}
+
 }
