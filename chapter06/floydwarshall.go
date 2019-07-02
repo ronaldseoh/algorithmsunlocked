@@ -36,7 +36,7 @@ func FloydWarshall(G *DiGraph) (map[int][][]int, map[int][][]int) {
 	for x := 0; x < G.Length; x++ {
 		for u := 0; u < G.Length; u++ {
 			for v := 0; v < G.Length; v++ {
-				if shortest[x][u][v] < shortest[x-1][u][x]+shortest[x-1][x][v] {
+				if shortest[x-1][u][v] > shortest[x-1][u][x]+shortest[x-1][x][v] {
 					shortest[x][u][v] = shortest[x-1][u][x] + shortest[x-1][x][v]
 					pred[x][u][v] = pred[x-1][x][v]
 				} else {
