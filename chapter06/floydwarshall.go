@@ -27,7 +27,7 @@ func FloydWarshall(G *DiGraph) (map[int][][]int, map[int][][]int) {
 				shortest[-1][u][v] = val
 				pred[-1][u][v] = u
 			} else {
-				shortest[-1][u][v] = int(^uint(0) >> 1)
+				shortest[-1][u][v] = int(^uint(0)>>1) / 2
 				pred[-1][u][v] = -1
 			}
 		}
