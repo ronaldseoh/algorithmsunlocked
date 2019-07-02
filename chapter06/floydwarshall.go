@@ -15,6 +15,8 @@ func FloydWarshall(G *DiGraph) (map[int][][]int, map[int][][]int) {
 	// all along, so we couldn't reserve index 0 for no intermediate nodes.
 	// Secondly, the pseudocode uses [u, v, x] indexes for shortest and pred,
 	// but we index them in the order of [x, u, v].
+	// Note: If you don't need to track changes between each x, we can actually
+	// go with n * n array and keep overwriting values to them.
 	shortest := make(map[int][][]int)
 	pred := make(map[int][][]int)
 
