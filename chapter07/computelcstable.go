@@ -31,7 +31,8 @@ func ComputeLcsTable(X string, Y string) [][]int {
 	// X and Y would have their first characters starting from index 0.
 	for i := 1; i <= len(X); i++ {
 		for j := 1; j <= len(Y); j++ {
-			//
+			// NOTE: X[i-1] and Y[j-1] corresponds to lcsTable[i][j],
+			// not [i-1][j-1].
 			if X[i-1] == Y[j-1] {
 				lcsTable[i][j] = lcsTable[i-1][j-1] + 1
 			} else {
