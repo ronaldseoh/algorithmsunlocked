@@ -4,7 +4,14 @@ package chapter07
 
 // ComputeTransformTables outputs the lengths of common subsequences between
 // different substrings from two input strings X and Y.
-func ComputeTransformTables(X string, Y string, costCopy int, costReplace int, costDelete int, costInsert int) ([][]int, [][]int) {
+func ComputeTransformTables(
+	X string,
+	Y string,
+	costCopy int,
+	costReplace int,
+	costDelete int,
+	costInsert int,
+) ([][]int, [][]string) {
 
 	costs := make([][]int, len(X)+1)
 
