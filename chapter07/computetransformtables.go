@@ -38,7 +38,7 @@ func ComputeTransformTables(
 	}
 
 	for i := 1; i <= len(X); i++ {
-		for j := 1; j < len(Y); j++ {
+		for j := 1; j <= len(Y); j++ {
 			if X[i-1] == Y[j-1] {
 				costs[i][j] = costs[i-1][j-1] + costCopy
 				ops[i][j] = "C"
