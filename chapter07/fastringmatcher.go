@@ -4,8 +4,9 @@ package chapter07
 
 import "fmt"
 
-// FaStringMatcher outputs the lengths of common subsequences between
-// different substrings from two input strings X and Y.
+// FaStringMatcher uses finite automaton to find occurrences of
+// a pattern string in T. This function requires a complete
+// nextState from ComputeNextStates function.
 func FaStringMatcher(
 	T string,
 	nextState []map[string]int,

@@ -2,8 +2,8 @@
 // implementations of the algorithms introduced in Chapter 7.
 package chapter07
 
-// ComputeNextStates outputs the lengths of common subsequences between
-// different substrings from two input strings X and Y.
+// ComputeNextStates generates a finite automaton for string matching
+// given a pattern string P and a set of new character choices availableCharacters.
 func ComputeNextStates(P string, availableCharacters []string) []map[string]int {
 	// len(P)+1 since nextStates[0] is for empty string
 	nextStates := make([]map[string]int, len(P)+1)
