@@ -13,10 +13,10 @@ func TestFaStringMatcher(t *testing.T) {
 
 	nextState := ComputeNextStates(testPattern1, testAvailableCharacters)
 
-	for i := 0; i < len(testAvailableCharacters); i++ {
+	for i := 0; i <= len(testPattern1); i++ {
 		fmt.Printf("%d ", i)
-		for _, value := range nextState[i] {
-			fmt.Printf("%d ", value)
+		for _, a := range testAvailableCharacters {
+			fmt.Printf("%d ", nextState[i][a])
 		}
 		fmt.Printf("\n")
 	}
