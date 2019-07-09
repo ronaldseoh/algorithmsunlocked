@@ -10,4 +10,4 @@ Note that Go 1.11+ is required to use [Go Modules](https://iamlink.000webhostapp
 
 # License
 
-`rs_mailer` is licensed under MIT license. Please check `LICENSE`.
+`algorithmsunlocked` is licensed under MIT license. Please check `LICENSE`.
