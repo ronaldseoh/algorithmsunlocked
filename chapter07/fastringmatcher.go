@@ -8,14 +8,17 @@ import "fmt"
 // different substrings from two input strings X and Y.
 func FaStringMatcher(
 	T string,
-	nextState [][]int,
+	nextState []map[string]int,
 	m int,
 	n int,
 ) {
+	// Starting from the empty substring of T
 	state := 0
 
 	for i := 1; i <= n; i++ {
-		state = nextState[state][T[i]]
+		// From the current state, what's the next state
+		// given the new character T[i-1]?
+		state = nextState[state][string(T[i-1])]
 
 		if state == m {
 			fmt.Printf("The pattern occurs with shift %d.\n", i-m)
