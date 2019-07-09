@@ -18,7 +18,10 @@ func ComputeNextStates(P string, availableCharacters []string) []map[string]int 
 			// i == the length of prefix P_i of P
 			var i int
 
-			// if
+			// if len(pka) becomes biggers than len(P),
+			// start from i = len(P) since it
+			// does not make sense to get next states
+			// that have strings longer than P.
 			if len(pka) > len(P) {
 				i = len(P)
 			} else {
@@ -30,6 +33,8 @@ func ComputeNextStates(P string, availableCharacters []string) []map[string]int 
 			for !suffixFound {
 				mismatchFound := false
 
+				// Compare each character of the prefix P_i
+				// with the last i characters of pka
 				for j := 0; j < i; j++ {
 					if pka[len(pka)-i+j] != P[j] {
 						mismatchFound = true
@@ -40,10 +45,16 @@ func ComputeNextStates(P string, availableCharacters []string) []map[string]int 
 				if !mismatchFound {
 					suffixFound = true
 				} else {
+					// If the current P_i isn't the suffix of pka,
+					// make it one character shorter
+					// and check again.
 					i = i - 1
 				}
 			}
 
+			// With the suffix found, we can now say that
+			// when we add new character 'a', then the next state becomes
+			// i.
 			nextStates[k][a] = i
 		}
 	}
