@@ -2,8 +2,10 @@
 // implementations of the algorithms introduced in Chapter 7.
 package chapter07
 
-// ComputeTransformTables outputs the lengths of common subsequences between
-// different substrings from two input strings X and Y.
+// ComputeTransformTables outputs costs, a table containing minimum costs
+// for transforming prefixes of string X into prefixes of string Y,
+// and ops, another tablw with last operations performed for each
+// X_i -> Y_j transformations.
 func ComputeTransformTables(
 	X string,
 	Y string,
