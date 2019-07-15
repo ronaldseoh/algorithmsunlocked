@@ -5,7 +5,7 @@ package chapter08
 // Euclid is an implementation of Euclidean algorithm for finding
 // the greatest common divisor (GCD) of two integers, along with
 // the coefficients i and j of g = a * i + b * j.
-func Euclid(a int, b int) (int, int, int) {
+func Euclid(a, b int) (int, int, int) {
 
 	// if b == 0, the GCD of a and b is just a = a * 1 + b * 0.
 	if b == 0 {
