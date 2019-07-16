@@ -14,7 +14,10 @@ func TestBuildHuffmanTree(t *testing.T) {
 
 	for _, char := range testString {
 		freq[string(char)] = freq[string(char)].Add(
-			decimal.New(1, 0).Div(decimal.New(int64(len(testString)), 0)))
+			decimal.New(1, 0).Div(
+				decimal.New(int64(len(testString)), 0),
+			),
+		)
 	}
 
 	testResult := BuildHuffmanTree(testString, freq)
