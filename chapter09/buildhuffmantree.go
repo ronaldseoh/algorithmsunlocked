@@ -3,51 +3,61 @@
 package chapter09
 
 import (
-	"strconv"
-
-	"github.com/emirpasic/gods/utils"
 	"github.com/ronaldseoh/algorithmsunlocked/chapter06"
+	"github.com/shopspring/decimal"
 )
+
+func decimalComparator(a, b interface{}) int {
+	return a.(decimal.Decimal).Cmp(b.(decimal.Decimal))
+}
 
 // BuildHuffmanTree generates a Huffman tree given
 // an array of string and another array of frequencies
 // of each characters.
-func BuildHuffmanTree(char []string, freq []int) *chapter06.DiGraph {
+func BuildHuffmanTree(char string, freq map[string]decimal.Decimal) *chapter06.DiGraph {
 
-	Q := chapter06.NewBinaryHeapPriorityQueueWithCustomComparator(utils.Float64Comparator)
+	Q := chapter06.NewBinaryHeapPriorityQueueWithCustomComparator(decimalComparator)
 
 	tree := &chapter06.DiGraph{
-		Length: 0,
+		Length:   len(freq),
+		Vertices: make([]*chapter06.Element, 0),
+		Edges:    make(map[*chapter06.Element][]*chapter06.Element),
+		Weights:  make(map[*chapter06.Element]map[*chapter06.Element]int),
 	}
 
-	for i := 0; i < len(char); i++ {
-		charIint, _ := strconv.Atoi(char[i])
+	for k, v := range freq {
 		z := &chapter06.Element{
-			Key:   freq[i],
-			Value: charIint,
+			Key:   v,
+			Value: string(k),
 		}
+
+		tree.Vertices = append(tree.Vertices, z)
 
 		Q.Insert(z)
 	}
 
-	for i := 0; i < len(char)-1; i++ {
+	treeBuildComplete := false
+
+	for !treeBuildComplete {
 		x := Q.ExtractMin()
 		y := Q.ExtractMin()
 
-		xyInt, _ := strconv.Atoi(strconv.Itoa(x.Value.(int)) + strconv.Itoa(y.Value.(int)))
+		combinedFrequency := x.Key.(decimal.Decimal).Add(y.Key.(decimal.Decimal))
 		z := &chapter06.Element{
-			Key:   x.Key.(float64) + y.Key.(float64),
-			Value: xyInt,
+			Key:   combinedFrequency,
+			Value: x.Value.(string) + y.Value.(string),
 		}
 
 		tree.Vertices = append(tree.Vertices, z)
-		tree.Vertices = append(tree.Vertices, x)
-		tree.Vertices = append(tree.Vertices, y)
 
 		tree.Edges[z] = append(tree.Edges[z], x)
 		tree.Edges[z] = append(tree.Edges[z], y)
 
 		Q.Insert(z)
+
+		if combinedFrequency.Equal(decimal.NewFromFloat(1.0)) {
+			treeBuildComplete = true
+		}
 	}
 
 	return tree
