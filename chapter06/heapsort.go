@@ -2,15 +2,6 @@
 // implementations of the algorithms introduced in Chapter 6.
 package chapter06
 
-// Element is a structure containing keys and data values inside
-// each element of PriorityQueue.
-type Element struct {
-	Key   interface{}
-	Value interface{}
-	// Index tracks the position of the element inside the underlying array
-	Index int
-}
-
 // PriorityQueue is a priority queue data implemented
 // with a binary heap.
 type PriorityQueue interface {
