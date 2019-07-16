@@ -5,7 +5,7 @@ package chapter06
 // Element is a structure containing keys and data values inside
 // each element of PriorityQueue.
 type Element struct {
-	Key   int
+	Key   interface{}
 	Value interface{}
 	// Index tracks the position of the element inside the underlying array
 	Index int
