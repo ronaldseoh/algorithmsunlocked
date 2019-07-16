@@ -4,7 +4,8 @@ package chapter08
 
 import "math"
 
-// ModularExponentiation is
+// ModularExponentiation calculates x^d mod n without calculating
+// x^d.
 func ModularExponentiation(x, d, n int) int {
 
 	if d < 0 {
