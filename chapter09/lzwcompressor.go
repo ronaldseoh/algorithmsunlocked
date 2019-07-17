@@ -12,7 +12,7 @@ func findDictionaryEntry(dictionary []string, term string) int {
 	return -1
 }
 
-// LzwCompressor generates
+// LzwCompressor generates a LZW-compressed sequence of indices into a dictionary.
 func LzwCompressor(text string) []int {
 
 	// Each element containing actual strings
@@ -45,12 +45,15 @@ func LzwCompressor(text string) []int {
 			// in s (which should already exist in the dictionary) by its index
 			indices = append(indices, findDictionaryEntry(dictionary, s))
 
-			// Add s+c to the dictionary so that we can represent s+c with a new index
+			// Add s+c to the dictionary so that we can represent s+c with this new index
 			// when it ever appears again in text
+			// So the string to be added to dictionary is always the same as some string
+			// already in the dictionary but extended by one character.
 			dictionary = append(dictionary, s+c)
 
 			// Since c of s+c was not represented in indices above, let's start building
-			// up the string from c again
+			// up the string from c again.
+			// Notice that at any point in this loop, s itself always exists in the dictionary.
 			s = c
 		}
 	}
