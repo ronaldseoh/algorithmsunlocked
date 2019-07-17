@@ -12,5 +12,12 @@ func TestLzwDecompressor(t *testing.T) {
 
 	fmt.Println(testIndices)
 
-	fmt.Println(LzwDecompressor(testIndices))
+	testResult := LzwDecompressor(testIndices)
+
+	fmt.Println(testResult)
+
+	if testResult != testString {
+		t.Errorf("LzwDecompressor Test - g: Expected %s, Got %s", testString, testResult)
+	}
+
 }
