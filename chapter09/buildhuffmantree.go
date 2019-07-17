@@ -36,9 +36,7 @@ func BuildHuffmanTree(char string, freq map[string]decimal.Decimal) *chapter06.D
 		Q.Insert(z)
 	}
 
-	treeBuildComplete := false
-
-	for !treeBuildComplete {
+	for i := 0; i < len(freq)-1; i++ {
 		x := Q.ExtractMin()
 		y := Q.ExtractMin()
 
@@ -54,10 +52,6 @@ func BuildHuffmanTree(char string, freq map[string]decimal.Decimal) *chapter06.D
 		tree.Edges[z] = append(tree.Edges[z], y)
 
 		Q.Insert(z)
-
-		if combinedFrequency.Equal(decimal.NewFromFloat(1.0)) {
-			treeBuildComplete = true
-		}
 	}
 
 	return tree
