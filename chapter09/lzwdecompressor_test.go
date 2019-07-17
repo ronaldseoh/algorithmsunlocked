@@ -17,7 +17,7 @@ func TestLzwDecompressor(t *testing.T) {
 	fmt.Println(testResult)
 
 	if testResult != testString {
-		t.Errorf("LzwDecompressor Test - g: Expected %s, Got %s", testString, testResult)
+		t.Errorf("LzwDecompressor Test: Expected %s, Got %s", testString, testResult)
 	}
 
 }
