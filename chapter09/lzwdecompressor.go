@@ -29,14 +29,15 @@ func LzwDecompressor(indices []int) string {
 		indices = indices[1:]
 
 		if current < len(dictionary) {
-			s := dictionary[current]
+			s := []rune(dictionary[current])
 
-			decompressed += s
+			decompressed += string(s)
 
 			dictionary = append(dictionary, dictionary[previous]+string(s[0]))
 		} else {
-			s := dictionary[previous] + string(dictionary[previous][0])
+			previousEntry := []rune(dictionary[previous])
 
+			s := dictionary[previous] + string(previousEntry[0])
 			decompressed += s
 
 			dictionary = append(dictionary, s)

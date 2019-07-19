@@ -27,13 +27,16 @@ func LzwCompressor(text string) []int {
 	// Store indices to the dictionary that corresponds to the original text
 	indices := make([]int, 0)
 
-	// Extract the first character
-	s := string(text[0])
-	text = text[1:]
+	// Convert text into a slice of runes
+	textArray := []rune(text)
 
-	for len(text) > 0 {
-		c := string(text[0])
-		text = text[1:]
+	// Extract the first character
+	s := string(textArray[0])
+	textArray = textArray[1:]
+
+	for len(textArray) > 0 {
+		c := string(textArray[0])
+		textArray = textArray[1:]
 
 		if findDictionaryEntry(dictionary, s+c) != -1 {
 			// If s+c is already in the dictionary, make s = s+c
