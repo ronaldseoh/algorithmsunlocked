@@ -28,16 +28,32 @@ func LzwDecompressor(indices []int) string {
 		current = indices[0]
 		indices = indices[1:]
 
+		// if dictionary[current] already exists, just output it into
+		// decompressed
 		if current < len(dictionary) {
 			s := []rune(dictionary[current])
 
 			decompressed += string(s)
 
+			// previous would have been added to dictionary in LzwCompressor when
+			// dictionary[previous]+string(s[0]) wasn't found in dictionary.
+			// Since we've now seen dictionary[current],
+			// it is the right time to append previous + current[0]
+			// to the dictionary of LzwDecompressor.
 			dictionary = append(dictionary, dictionary[previous]+string(s[0]))
 		} else {
+			// In some rare cases, current do not exist in our
+			// recreated dictionary yet, because previous entries in indices
+			// did not cause dictionary[current] to be added.
+			// This situation seems to occur only when the entry have
+			// identical first and last characters, and the index is the one
+			// most recently inserted to the dictionary.
+			// So we deal with this special case by concatenating dictionary[previous]
+			// with the first of character of the same string.
 			previousEntry := []rune(dictionary[previous])
 
 			s := dictionary[previous] + string(previousEntry[0])
+
 			decompressed += s
 
 			dictionary = append(dictionary, s)
