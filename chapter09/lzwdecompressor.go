@@ -44,10 +44,11 @@ func LzwDecompressor(indices []int) string {
 		} else {
 			// In some rare cases, current do not exist in our
 			// recreated dictionary yet, because previous entries in indices
-			// did not cause dictionary[current] to be added.
-			// This situation seems to occur only when the entry have
-			// identical first and last characters, and the index is the one
-			// most recently inserted to the dictionary.
+			// did not recover dictionary[current] just yet.
+			// This situation seems to occur when current was added to indices
+			// right after it was added to the dictionary by concatenating
+			// dictionary[previous] + current[0], where current[0] has to be
+			// same with previous[0].
 			// So we deal with this special case by concatenating dictionary[previous]
 			// with the first of character of the same string.
 			previousEntry := []rune(dictionary[previous])
