@@ -2,15 +2,17 @@
 
 The following is a collection of summaries, excerpts, and notes I took from the book. 
 
-**This isn't quite complete yet, so do not use it for your studies until I remove this notice. (Probably you won't though..)**
+**This isn't quite complete yet, so do not use it for your studies until I remove this notice.**
 
-1. What Are Algorithms and Why Should You Care?
+Chapter 1. What Are Algorithms and Why Should You Care?
+-------------------------------------------------------
 	- What is an algorithm?
 	- What we need for proper algorithms
 		- Correctness
 		- Efficiency: Time, Memory Footprint
 
-2. How to Describe and Evaluate Computer Algorithms
+Chapter 2. How to Describe and Evaluate Computer Algorithms
+-----------------------------------------------------------
 	- How to describe computer algorithms: Pseudocode? --> He will just use English..
 		- Procedures, Parameters, Array, Loop, Iteration, Loop Variable
 		- A sentinel: Empty box to prevent checking loop variables
@@ -18,7 +20,8 @@ The following is a collection of summaries, excerpts, and notes I took from the 
 	- Use a Loop Invariant to prove correctness
 	- Recursion
 
-3. Algorithms for Sorting and Searching
+Chapter 3. Algorithms for Sorting and Searching
+-----------------------------------------------
 	- If we know nothing about the order of the elements in the array, then no, we cannot do better than linear search.
 	- If the array is sorted into nondecreasing order: Binary Search in only O(lg n) time
 	- Then how do we get the array to be sorted in the first place?
@@ -88,8 +91,8 @@ The following is a collection of summaries, excerpts, and notes I took from the 
 		- But is it possible to beat Theta(n * lg n) time for sorting? It depends...
 				- If we don't know about the elements beforehand, then NO.
 
-4. A Lower Bound for Sorting and How to Beat It
-
+Chapter 4. A Lower Bound for Sorting and How to Beat It
+-------------------------------------------------------
 	- The lower bound on "comparison sorting"
 		- In the worst case, any comparison sorting algorithm for n elements requires Omega(n * lg n) comparisons between pairs of elements.
 			- Note that 1) it's saying something only about the WORST case. You might be able to do less comparisons if you assume other best cases.
@@ -116,8 +119,8 @@ The following is a collection of summaries, excerpts, and notes I took from the 
 
 		- It is critical that we use stable sort algorithm on individual digits, so that we retain sorted orders from previous digits.
 
-5. Directed Acyclic Graphs
-
+Chapter 5. Directed Acyclic Graphs
+----------------------------------
 	- Directed Graphs
 		- Vertices
 		- Directed edges (u, v)
@@ -169,7 +172,8 @@ The following is a collection of summaries, excerpts, and notes I took from the 
 		- Use topological sort, and relax every vertex and their edges
 		- Theta(n + m) time.
 
-6. Shortest Paths
+Chapter 6. Shortest Paths
+-------------------------
 	- Dijkstra Algorithm
 
 		- Priority Queue: It's an ADT (Abstract Data Type).
@@ -267,7 +271,8 @@ The following is a collection of summaries, excerpts, and notes I took from the 
 
 		- Bottom Up / Top Down
 
-7. Algorithms on Strings
+Chapter 7. Algorithms on Strings
+--------------------------------
 	- Focusing on 3 tasks on strings:
 		(1) Find a longest common subsequence of two strings
 		(2) Given a set of operations that can transform one string to another, and the cost of each operation, find a lowest-cost way to transform one string to another.
@@ -340,7 +345,8 @@ The following is a collection of summaries, excerpts, and notes I took from the 
 
 		- KMP (Knuth, Morris, and Pratt) algorithm: Avoids creating next-state and uses move-to array -> Theta(m) time. Actual pattern matching still takes Theta(n) time though
 
-8. Foundations of Cryptography
+Chapter 8. Foundations of Cryptography
+--------------------------------------
 	- Simple Substitution Ciphers
 		- Shift cipher
 		- Permutation
@@ -420,7 +426,8 @@ The following is a collection of summaries, excerpts, and notes I took from the 
 			- independent (no matter what you know about the previous bits generated, anyone has a 50% chance of correctly guessing the next bit),
 			- and unpredictable to an adversary who is trying to break your cryptosystem.
 
-9. Data Compression
+Chapter 9. Data Compression
+---------------------------
 	- Three questions
 		1. Why would be want to compress information?
 			- time
@@ -525,8 +532,8 @@ The following is a collection of summaries, excerpts, and notes I took from the 
 					- In one approach, once the dictionary reaches a maximum size, no other entries are ever inserted.
 					- In another approach, once the dictionary reaches a maximum size, it is cleared out (except for the first 256 entries) and the process of filling out the dictionary restarts from the point in the text where the dictionary filled.
 
-
-10. Hard? Problems
+Chapter 10. Hard? Problems
+--------------------------
 	- NP-Complete Problems
 		- Traveling Salesman Problem
 			- The # of possible routes that visit n locations is enormous: n!
@@ -624,7 +631,6 @@ The following is a collection of summaries, excerpts, and notes I took from the 
 				- Take some other problem X that we know to be NP-hard and give a polynomial-time reduction.
 
 			- We need to start with some NP-complete problem M (the Mother Problem) that every problem in NP reduces to in polynomial time. Then we can reduce M to some other problem in polynomial time to show that the other problem is NP-hard, reduce the other problem to yet some other problem to show that the latter is NP-hard, and so on.
-			
 
 	- A Mother Problem
 		- Boolean Formula Satisfiability Problem: Decide whether any given boolean formula has a satisfying assignment to its variables
