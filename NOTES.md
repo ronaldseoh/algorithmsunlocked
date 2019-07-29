@@ -1,4 +1,5 @@
-# Reading Notes (Work in Progress)
+Reading Notes (Work in Progress)
+================================
 
 The following is a collection of summaries, excerpts, and notes I took from the book. 
 
