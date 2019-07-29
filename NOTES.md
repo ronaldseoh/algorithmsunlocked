@@ -1,16 +1,17 @@
 Reading Notes (Work in Progress)
 ================================
 
-The following is a collection of summaries, excerpts, and notes I took from the book. 
+The following is a collection of summaries, excerpts, and notes I took from the book.
 
 **This isn't quite complete yet, so do not use it for your studies until I remove this notice.**
 
 Chapter 1. What Are Algorithms and Why Should You Care?
 -------------------------------------------------------
+
 - What is an algorithm?
 - What we need for proper algorithms
-	- Correctness
-	- Efficiency: Time, Memory Footprint
+  - Correctness
+  - Efficiency: Time, Memory Footprint
 
 Chapter 2. How to Describe and Evaluate Computer Algorithms
 -----------------------------------------------------------
