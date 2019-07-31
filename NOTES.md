@@ -1,9 +1,9 @@
-Reading Notes (Work in Progress)
-================================
+Reading Notes
+=============
 
 The following is a collection of summaries, excerpts, and notes I took from the book.
 
-**This isn't quite complete yet, so do not use it for your studies until I remove this notice.**
+**NOTE: This is NOT a complete summary of the book's content. Please read the book first to get a thorough understanding of all the topics covered in the book.**
 
 Chapter 1. What Are Algorithms and Why Should You Care
 ------------------------------------------------------
