@@ -29,10 +29,10 @@ Chapter 2. How to Describe and Evaluate Computer Algorithms
   - Big-Theta: Running time upper- and lower-bounded by the given function.
   - Big-O: Upper-bounded
   - Big-Omega: Lower-bounded
-- Use a Loop invariant to prove correctness
+- Use a loop invariant to prove correctness
   - Loop invariant: A statement or property that holds at the start of each loop iteration
 - Recursion
-  - Base Cases
+  - Base cases
   - Factorial
 
 Chapter 3. Algorithms for Sorting and Searching
