@@ -39,7 +39,7 @@ Chapter 3. Algorithms for Sorting and Searching
 -----------------------------------------------
 
 - If we don't have any information about how the elements of the array are ordered, we cannot do better than linear search.
-- If the array is sorted into nondecreasing order: binary search in only O(lg n) time
+- If the array is sorted into nondecreasing order: binary search in only `O(lg n)` time
 - What do you mean when one element is less than another?
   - Numbers
   - Lexicographic ordering
@@ -48,7 +48,7 @@ Chapter 3. Algorithms for Sorting and Searching
   - Satellite data: The information associated with the key but not the one we base our sorting
 
 - Then how do we get the array to be sorted in the first place?
-  - Let's use sorting algorithms: Theta(n^2) or Theta(n * lg n) in worst case.
+  - Let's use sorting algorithms: `Theta(n^2)` or `Theta(n * lg n)` in worst case.
     - Selection Sort
     - Insertion Sort
     - Merge Sort
@@ -59,10 +59,10 @@ Chapter 3. Algorithms for Sorting and Searching
     - If it's larger, then you can safely ignore the second half and only consider the first.
     - If smaller, you can discard the first half instead.
     - Continue checking the middle index to discard one of the two halves, until you get exactly the key you are looking for.
-  - Time complexity: O(lg n), since we are halving the array at each loop iteration, so there will be approximately lg n iterations.
+  - Time complexity: `O(lg n)`, since we are halving the array at each loop iteration, so there will be approximately `lg n` iterations.
   - Use loop variant to prove its correctness
-    - Loop invariant: At the start of each iteration of the loop, if x is anywhere in the array A, then it is somewhere in the subarray A[p:r].
-      - By the contrapositive of the loop variant above, we can see that if x is not in A[p:r], then it's not in A.
+    - Loop invariant: At the start of each iteration of the loop, if `x` is anywhere in the array `A`, then it is somewhere in the subarray `A[p:r]`.
+      - By the contrapositive of the loop variant above, we can see that if `x` is not in `A[p:r]`, then it's not in `A`.
   - Recursive version: [See the code.](https://link.iamblogger.net/1orvi)
 
 - Selection Sort: [See the code.](https://link.iamblogger.net/8zrxt)
