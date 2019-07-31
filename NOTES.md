@@ -24,7 +24,7 @@ Chapter 2. How to Describe and Evaluate Computer Algorithms
 - How to describe computer algorithms: Pseudocode? -> He will just use English..
   - Procedures, Parameters, Array, Loop, Iteration, Loop Variable
   - A sentinel: Empty box to prevent checking loop variables
-- Linear Search
+- Linear Search: [See the code.](https://link.iamblogger.net/hiu3p)
 - Asymptotic Notation
   - Big-Theta: Running time upper- and lower-bounded by the given function.
   - Big-O: Upper-bounded
