@@ -66,7 +66,9 @@ Chapter 3. Algorithms for Sorting and Searching
   - Recursive version: [See the code.](https://link.iamblogger.net/1orvi)
 
 - Selection Sort: [See the code.](https://link.iamblogger.net/8zrxt)
-  - Time complexity: Theta(n^2). However, actual moving of array elements occur only n-1 times. Therefore, it might be reasonable to use selection sort when I/O costs are high.
+  - The idea: Find the smallest among `A[i]` to `A[n]`, and put it in `A[i]`. Then increment `i` and repeat.
+  - Time complexity: `Theta(n^2)`, since we run the outer loop `n` times, and execute the inner loop `n-i` times each.
+  - However, actual moving of array elements occur only `n-1` times. Therefore, it might be reasonable to use selection sort when I/O costs are high.
 
 - Insertion Sort: [See the code.](https://link.iamblogger.net/jsfq7)
     - Best Case: Theta(n) time when the elements are already sorted. each iteration will take constant time for n iterations.
