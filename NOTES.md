@@ -37,20 +37,38 @@ Chapter 2. How to Describe and Evaluate Computer Algorithms
 
 Chapter 3. Algorithms for Sorting and Searching
 -----------------------------------------------
-- If we know nothing about the order of the elements in the array, then no, we cannot do better than linear search.
-- If the array is sorted into nondecreasing order: Binary Search in only O(lg n) time
+
+- If we don't have any information about how the elements of the array are ordered, we cannot do better than linear search.
+- If the array is sorted into nondecreasing order: binary search in only O(lg n) time
+- What do you mean when one element is less than another?
+  - Numbers
+  - Lexicographic ordering
+
+- Key: The data that we do the sorting over to get an order
+  - Satellite data: The information associated with the key but not the one we base our sorting
+
 - Then how do we get the array to be sorted in the first place?
-- Sorting Algorithms: Theta(n^2) or Theta(n * lg n) in worst case.
+  - Let's use sorting algorithms: Theta(n^2) or Theta(n * lg n) in worst case.
     - Selection Sort
     - Insertion Sort
     - Merge Sort
     - Quick Sort
 
-- Binary Search: Use very similar loop variant to prove its correctness
+- Binary Search: [See the code.](https://link.iamblogger.net/mjw2d)
+  - The idea: Given an array/list of elements, check the index right in the middle to see if the key is bigger or smaller than the one you are looking for.
+    - If it's larger, then you can safely ignore the second half and only consider the first.
+    - If smaller, you can discard the first half instead.
+    - Continue checking the middle index to discard one of the two halves, until you get exactly the key you are looking for.
+  - Time complexity: O(lg n), since we are halving the array at each loop iteration, so there will be approximately lg n iterations.
+  - Use loop variant to prove its correctness
+    - Loop invariant: At the start of each iteration of the loop, if x is anywhere in the array A, then it is somewhere in the subarray A[p:r].
+      - By the contrapositive of the loop variant above, we can see that if x is not in A[p:r], then it's not in A.
+  - Recursive version: [See the code.](https://link.iamblogger.net/1orvi)
 
-- Selection Sort: Theta(n^2). However, actual moving of array elements occur only n-1 times. Therefore, it might be reasonable to use selection sort when I/O costs are high.
+- Selection Sort: [See the code.](https://link.iamblogger.net/8zrxt)
+  - Time complexity: Theta(n^2). However, actual moving of array elements occur only n-1 times. Therefore, it might be reasonable to use selection sort when I/O costs are high.
 
-- Insertion Sort: 
+- Insertion Sort: [See the code.](https://link.iamblogger.net/jsfq7)
     - Best Case: Theta(n) time when the elements are already sorted. each iteration will take constant time for n iterations.
     - Worst Case: Theta(n^2). Items are in reversed sorted order. For each time the outer loop iterates, the inner loop iterates i - 1 times.
     - In the worst case, therefore, selection sort and insertion sort have running times that are asymptotically the same.
