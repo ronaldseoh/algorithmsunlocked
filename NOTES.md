@@ -93,8 +93,8 @@ Chapter 3. Algorithms for Sorting and Searching
     - The base case occurs when fewer than two books need to be sorted (that is, when `p >= r`), since a set of books with no books or one book is already trivially sorted.
 
   - Time complexity: `Theta(n*lg n)` in ALL cases.
-    - Since the merging itself involves copying `n` elements, it takes `Theta(n)` time.
-    - Plus, since we've been constantly halving the array into two, we get to do the merging `lg n` times.
+    - Since merging the subarrays divided at the same stage involves copying `n` elements, it takes `Theta(n)` time.
+    - Plus, since we've been constantly halving the array into two, we get to do the merging over `n` elements `lg n` times, hence leading to `Theta(n*lg n)` running time.
   
   - Disadvantages:
     - The constant factor is higher than selection sort or insertion sort.
