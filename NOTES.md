@@ -71,12 +71,16 @@ Chapter 3. Algorithms for Sorting and Searching
   - However, actual moving of array elements occur only `n-1` times. Therefore, it might be reasonable to use selection sort when I/O costs are high.
 
 - Insertion Sort: [See the code.](https://link.iamblogger.net/jsfq7)
-    - Best Case: Theta(n) time when the elements are already sorted. each iteration will take constant time for n iterations.
-    - Worst Case: Theta(n^2). Items are in reversed sorted order. For each time the outer loop iterates, the inner loop iterates i - 1 times.
-    - In the worst case, therefore, selection sort and insertion sort have running times that are asymptotically the same.
+  - The idea: Starting from the second element, sort elements among the first `(i+1)` items by swapping items in reverse order until reaching `A[0]`, or an element with sort key smaller than `A[i]`, since that would indicate that items located at that index and earlier are already sorted AND they are all smaller than `A[i]`, so they don't have to be shifted. Note that those first `(i+1)` items would include items that are already sorted in the previous iterations.
+  - Time complexity
+    - Best Case: `Theta(n)` time when the elements are already sorted. each iteration will take constant time for `n` iterations.
+    - Worst Case: `Theta(n^2)` when items are in reversed sorted order. For each iteration of the outer loop, the inner loop iterates `i-1` times. Those `i-1`s will form an arithmetic series, and its sum will be `Theta(n^2)`.
+      - In the worst case, therefore, selection sort and insertion sort have running times that are asymptotically the same.
+    - Average Case: Still `Theta(n^2)`. If elements were to be initially given in a truly random order, then each elements would be expected to be larger than roughly half the elements preceding it and smaller than the another half. Then the inner loop would run `(i-1)/2` iterations per each outer loop run.
+
     - Insertion Sort is an excellent choice when the array starts out as "almost sorted":
-        - If we can be certain about the expected number of movements each element would need, then the total running time would be k*n ~ Theta(n).
-    - Selection Sort vs. Insertion Sort: While they are both O(n^2), selection sort move elements Theta(n) times no matter what, while insertion sort could move elements up to Theta(n^2) times.
+      - If we can be certain about the expected number of movements each element would need, then the total running time would be `k*n` `~ Theta(n)`.
+    - Selection Sort vs. Insertion Sort: While they are both `O(n^2)`, selection sort move elements `Theta(n)` times no matter what, while insertion sort could move elements up to `Theta(n^2)` times.
 
 - Merge Sort: Theta(n*lg n) in ALL cases.
     - Disadvantages:
