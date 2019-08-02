@@ -87,10 +87,10 @@ Chapter 3. Algorithms for Sorting and Searching
 
   - Merge Sort employs **'divide-and-conquer'** paradigm.
     - We break the problem into subproblems that are similar to the original, solve the subproblems recursively, and then combine the solutions to the subproblems to solve the original problem.
-      - DIVIDE by finding the number of `q` of the slot midway between `p` and `r`. We do so in the same way that we found the midpoint in binary search: add `p` and `q`, divide by `2`, and take the floor.
-      - CONQUER by recursively sorting the books in each of the two subproblems created by the divide step: recursively sort the books that are in slots `p` through `q`, and recursively sort the books that are in slots `q + 1` through `r`.
-      - COMBINE by merging the sorted books that are in slots `p` through `q` and slots `q+1` through `r`, so that all the books in slots `p` through `r` are sorted.
-    - The base case occurs when fewer than two books need to be sorted (that is, when `p >= r`), since a set of books with no books or one book is already trivially sorted.
+      - DIVIDE by finding the index `q` roughly in the middle of `p` and `r`: add `p` and `r`, divide by `2`, and take the floor.
+      - CONQUER by recursively sorting the elements in each of the two subproblems created by the divide step: recursively sort the elements that are in indexes `p` through `q`, and recursively sort the elements that are in indexes `q + 1` through `r`.
+      - COMBINE by merging the sorted elements that are in indexes `p` through `q` and indexes `q+1` through `r`, so that all the elements in slots `p` through `r` are sorted.
+    - The base case occurs when fewer than two elements need to be sorted (that is, when `p >= r`), since a set of elements with no elements or one element is already trivially sorted.
 
   - Time complexity: `Theta(n*lg n)` in ALL cases.
     - Since merging the subarrays divided at the same stage involves copying `n` elements, it takes `Theta(n)` time.
