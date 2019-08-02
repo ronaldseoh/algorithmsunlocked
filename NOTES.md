@@ -101,38 +101,40 @@ Chapter 3. Algorithms for Sorting and Searching
     - We have to make complete copies of the entire input array.
       - If space is at a premium, you might not want to use merge sort.
 
-- Quick Sort: also employs divide-and-conquer
-    - Works in place
-    - Better constant factors than merge sort's
-    - Asymptotic running time differs between the worst case and the average case
-        - Worst-case: Theta(n^2)
-        - Average-case: Theta(n * lg n)
+- Quick Sort: [See the code.](https://link.iamblogger.net/1x51x)
+  - The idea: also employs divide-and-conquer. Pick the last point in the array and call it a 'pivot.' Organize them within the array in groups where one group `L` has all the elements smaller than the pivot, another called `R` with all bigger than the pivot, and the pivot `P` itself. Swap the pivot with the leftmost element of `R` to make the array to be in the order of `L`, `P`, and `R`. Then apply the steps again to `L` and `R` themselves.
 
-    - Divide-and-conquer
-        - DIVIDE by first choosing any one book that is in slots p through r. Call this book the PIVOT. Rearrange (Partition) the books on the shelf so that all other books with author names that come before the pivot's author or are written by the same author are to the left of the pivot. and all books with author names that come after the pivot's author are to the right of the pivot.
-        - CONQUER by recursively sorting the books to the left of the pivot and to the right of the pivot. That is, if the divide step moves the pivot to slot q, then recursively sort the books in slots p through q - 1 and recursively sort the books in slots q + 1 through r. 
-        - COMBINE by doing nothing! Once the conquer step recursively sorts, we are DONE. Why? All the books to the left of the pivot (in slots p through q - 1) come before the pivot or have the same author as the pivot and ARE SORTED, and all the books to the right of the pivot (in slots q + 1 through r) come after the pivot and are sorted. The books in slots p through r can't help but be sorted!
+  - Works in place
+  - Better constant factors than merge sort's
+  - Divide-and-conquer
+    - DIVIDE: First choose any one element in indexes `p` through `r`. Call this index the **pivot**. Rearrange elements in the array so that all other elements with keys that come before the pivot's or have identical keys are to the left of the pivot, and all others with keys that come after the pivot's are to the right of the pivot.
+    - CONQUER: Recursively sort the elements to the left of the pivot and to the right of the pivot. That is, if the divide step moves the pivot to slot `q`, then recursively sort the books in slots `p` through `q-1` and recursively sort the books in slots `q+1` through `r`.
+    - COMBINE: Once the conquer step recursively sorts, everything is already combined. All the elements to the left of the pivot (in slots `p` through `q-1`) come before the pivot or have the same key as the pivot and ARE SORTED, and all the elements to the right of the pivot (in slots `q+1` through `r`) come after the pivot and are sorted. The elements in the indexes `p` through `r` can't help but be sorted!
 
     - Like merge sort, the base case occurs when the subarray to be sorted has fewer than two elements.
 
-    - Worst Case: Theta(n^2) - When everything is already sorted and every elements except the pivot gets into either L or R
-        - T(n) = T(n-1) + Theta(n)
+  - Time complexity
+    - Each `partition()` would take `Theta(n)` time, since we have to iterate over all the elements in the given (sub)array.
 
-    - Best Case: Theta(n * lg n) - Same as merge sort - when the pivot falls roughly in the middle every time.
-        - T(n) = T(n/2) + Theta(n)
+    - Worst Case: `Theta(n^2)` - When everything is already sorted and every elements except the pivot gets into either `L` or `R`. `partition()` won't be able to divide elements into `L` and `R` evenly since they would all fall into just one of them. It would take `n` steps to partition everything, hence the total running time would be `Theta(n^2)`.
+      - `T(n) = T(n-1) + Theta(n)`
 
-    - With some technical analysis, we can see that if the elements of the input array come in a RANDOM order, then on average we get splits that are close enough to even that quick sort takes Theta(n * lg n) time.
+    - Best Case: `Theta(n * lg n)` - Same as merge sort, when the pivot falls roughly in the middle every time.
+      - `T(n) = T(n/2) + Theta(n)`
 
-    - To prevent picking bad pivot points, we can choose the pivot randomly among the elements and swap with A[r] before proceeding to partition().
-        - Even better, we can have alternative pivot-choosing strategies where
-            - Choose three elements at random and swap the median of the three with A[r].
+    - With some technical analysis, we can see that if the elements of the input array come in a **random** order, then on average we get splits that are close enough to even that quick sort takes `Theta(n * lg n)` time.
+
+    - To prevent picking bad pivot points, we can choose the pivot randomly among the elements and swap with `A[r]` before proceeding to partition().
+      - Even better, we can have alternative pivot-choosing strategies where
+        - Choose three elements at random and swap the median of the three with `A[r]`.
 
     - Try avoid attempting 'swap' on elements to move to the exactly same positions.
 
 - In empirical testing, randomized quicksort beats other algorithms examined in this chapter. But we can do even better by
-    - employing hybrid methods: Perform insertion sort, which is known to be Theta(n) in best cases, when the subarrays became small enough during the quicksort process.
-    - But is it possible to beat Theta(n * lg n) time for sorting? It depends...
-            - If we don't know about the elements beforehand, then NO.
+  - Employing hybrid methods: Perform insertion sort, which is known to be `Theta(n)` in best cases, when the subarrays became small enough during the quicksort process.
+  
+  - But is it possible to beat `Theta(n * lg n)` time for sorting? It depends...
+    - If we don't know about the elements beforehand, then **no**.
 
 Chapter 4. A Lower Bound for Sorting and How to Beat It
 -------------------------------------------------------
