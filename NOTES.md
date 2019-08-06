@@ -107,7 +107,7 @@ Chapter 3. Algorithms for Sorting and Searching
   - Works in place
   - Better constant factors than merge sort's
   - Divide-and-conquer
-    - DIVIDE: First choose any one element in indexes `p` through `r`. Call this index the **pivot**. Rearrange elements in the array so that all other elements with keys that come before the pivot's or have identical keys are to the left of the pivot, and all others with keys that come after the pivot's are to the right of the pivot.
+    - DIVIDE: First choose any one element in indexes `p` through `r`. Call this index the *pivot*. Rearrange elements in the array so that all other elements with keys that come before the pivot's or have identical keys are to the left of the pivot, and all others with keys that come after the pivot's are to the right of the pivot.
     - CONQUER: Recursively sort the elements to the left of the pivot and to the right of the pivot. That is, if the divide step moves the pivot to slot `q`, then recursively sort the books in slots `p` through `q-1` and recursively sort the books in slots `q+1` through `r`.
     - COMBINE: Once the conquer step recursively sorts, everything is already combined. All the elements to the left of the pivot (in slots `p` through `q-1`) come before the pivot or have the same key as the pivot and ARE SORTED, and all the elements to the right of the pivot (in slots `q+1` through `r`) come after the pivot and are sorted. The elements in the indexes `p` through `r` can't help but be sorted!
 
@@ -122,7 +122,7 @@ Chapter 3. Algorithms for Sorting and Searching
     - Best Case: `Theta(n * lg n)` - Same as merge sort, when the pivot falls roughly in the middle every time.
       - `T(n) = T(n/2) + Theta(n)`
 
-    - With some technical analysis, we can see that if the elements of the input array come in a **random** order, then on average we get splits that are close enough to even that quick sort takes `Theta(n * lg n)` time.
+    - With some technical analysis, we can see that if the elements of the input array come in a *random* order, then on average we get splits that are close enough to even that quick sort takes `Theta(n * lg n)` time.
 
     - To prevent picking bad pivot points, we can choose the pivot randomly among the elements and swap with `A[r]` before proceeding to partition().
       - Even better, we can have alternative pivot-choosing strategies where
