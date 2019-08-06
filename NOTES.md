@@ -138,31 +138,41 @@ Chapter 3. Algorithms for Sorting and Searching
 
 Chapter 4. A Lower Bound for Sorting and How to Beat It
 -------------------------------------------------------
+
+- Really simple sort: [See the code.](https://link.iamblogger.net/dalbf)
+  - If we know that there's only `1` or `2` in the array, then we can just count the # of `1`s in the array to be `k`, set the first `k` indexes of an array to be `1`, and set the rest to be `2`. This algorithm involved no direct comparison between elements, and achieves `Theta(n)` time.
+
 - The lower bound on "comparison sorting"
-    - In the worst case, any comparison sorting algorithm for n elements requires Omega(n * lg n) comparisons between pairs of elements.
-        - Note that 1) it's saying something only about the WORST case. You might be able to do less comparisons if you assume other best cases.
-            - We call this lower bound an existential lower bound because it says that there exists an input that requires Omega(n * lg n) comparisons. 
-            - Another type of lower bound is a universal lower bound, which applies to all inputs.
-                - For sorting, the only universal lower bound we have is Omega(n), since we at least have to look at each element once.
-        - 2) This lower bound does not depend on the particular algorithm.
+  - Comparison sort: Any sorting algorithm that outputs the sorted order by comparing the given elements. Note that really simple sort described above is NOT a comparison sort algorithm.
+  - In the worst case, any comparison sorting algorithm for `n` elements requires `Omega(n * lg n)` comparisons between pairs of elements.
+    - Note that it's saying something only about the WORST case. You might be able to do less comparisons if you assume other best cases.
+      - We call this lower bound an **existential lower bound** because it says that there exists an input that requires `Omega(n * lg n)` comparisons.
+      - Another type of lower bound is a **universal lower bound**, which applies to all inputs.
+        - For sorting, the only universal lower bound we have is `Omega(n)`, since we at least have to look at each element once.
+        - This lower bound does not depend on the particular algorithm.
 
-- Counting Sort
-    - Generalization of Really Simple Sort: If we know that k elements have sort keys equal to x and that l elements have sort keys less than x, then we know that the elements with sort keys equal to x should occupy positions l+1 through l+k in the sorted array.
-    
-    - Theta(m + n) time
+- Counting Sort: [See the code.](https://link.iamblogger.net/x64ca)
+  - Generalization of really simple sort: If we know that `k` elements have sort keys equal to `x` and that `l` elements have sort keys less than `x`, then we know that the elements with sort keys equal to `x` should occupy positions `l+1` through `l+k` in the sorted array.
 
-    - Counting Sort is a stable sort: In a stable sort, elements with the same sort key appear in the output array in the same order as they do in the input array.
-        - In other words, a stable sort breaks ties between two elements equal sort keys by placing first in the output array whichever element appears first in the input array.
+  - `Theta(m + n)` time
+    - `m` loop iterations for intializing the array containing the # of each `m` elements, and the `less` array.
+    - `n` loop iterations for initial counting of the elements, and setting the output array by each values
+
+  - Counting sort was possible because all the sort keys were integers; It wouldn't have been possible if they were like real numbers or strings.
+
+  - Counting sort is a **stable sort**: In a stable sort, elements with the same sort key appear in the output array in the same order as they do in the input array.
+    - In other words, a stable sort breaks ties between two elements equal sort keys by placing first in the output array whichever element appears first in the input array.
 
 - Radix Sort
-    - Given strings of characters of some fixed length, sequentially sort based on each characters
+  - Given strings of characters of some fixed length, sequentially sort based on *each characters*
+    - We can't do counting sort directly on those strings, because there will be infinite combinations, or still too many even if we limit the possible # of characters.
 
-    - To generalize, in the radix sort algorithm, we assume that we can think of each sort key as a d-digit number, where each digit is in the range 0 to m-1. 
+  - To generalize, in the radix sort algorithm, we assume that we can think of each sort key as a `d`-digit number, where each digit is in the range `0` to `m-1`.
 
-    - We run a stable sort on each digit, going from RIGHT to LEFT. If we use counting sort as the stable sort, then the time to sort on one digit is Theta(m + n), and the time to sort all d digits is Theta(d*(m+n)).
-        - If m is a constant, then the time for radix sort is Theta(d * n). If d is also a constant, then the time for radix sort is only Theta(n).
-
-    - It is critical that we use stable sort algorithm on individual digits, so that we retain sorted orders from previous digits.
+  - We run a stable sort on each digit, going from *RIGHT* to *LEFT*. If we use counting sort as the stable sort, then the time to sort on one digit is `Theta(m + n)`, and the time to sort all `d` digits is `Theta(d*(m+n))`.
+    - If `m` is a constant, then the time for radix sort is `Theta(d * n)`. If `d` is also a constant, then the time for radix sort is only `Theta(n)`.
+    - It is critical that we use *stable sort* algorithm on individual digits, so that we retain sorted orders from previous digits.
+    - Right to left, otherwise the element that is supposed to appear later could come earlier because it has lower sort key in later digits.
 
 Chapter 5. Directed Acyclic Graphs
 ----------------------------------
