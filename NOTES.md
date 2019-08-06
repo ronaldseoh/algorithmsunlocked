@@ -176,44 +176,52 @@ Chapter 4. A Lower Bound for Sorting and How to Beat It
 
 Chapter 5. Directed Acyclic Graphs
 ----------------------------------
+
 - Directed Graphs
-    - Vertices
-    - Directed edges (u, v)
-        - u is "adjacent" to u
-        - (u, v) "leaves" u and "enters" v
+  - Vertices
+  - Directed edges `(u, v)`
+    - `v` is "adjacent" to `u`
+    - "leaves" `u` and "enters" `v`
 
 - Directed Acyclic Graphs (DAG)
-    - There is no way to get from a vertex back to itself by following a sequence of one or more edges.
-    - DAGs are great for modeling dependencies.
+  - There is no way to get from a vertex back to itself by following a sequence of one or more edges.
+  - DAGs are great for modeling dependencies.
 
-- Topological Sort
-    - A topological sort of a DAG produces a linear order such that if (u, v) is an edge in the DAG, then u appears before v in the linear order. 
-    - The linear order produced by a topological sort is not necessarily unique.
+- Topological Sort: [See the code.](https://link.iamblogger.net/oy0zh)
+  - A topological sort of a DAG produces a *linear order* such that if `(u, v)` is an edge in the DAG, then `u` appears before `v` in the linear order.
+  
+  - The linear order produced by a topological sort is not necessarily unique.
 
-    - How to choose a new vertex to be added to the linear order:
-        - Any vertex with no entering edges.
-        - In-degree: The # of edges entering a vertex
-            - Any vertex with in-degree=0
-                - Fortunately, every DAG must have at least one vertex with in-degree 0 and at least one vertex with out-degree=0, for otherwise there would be a cycle.
-    
-    - Any vertex v that is adjacent to u must appear somewhere after u in the linear order.
-        - Therefore, we can safely remove u and the edges leaving from u after adding it to the linear order.
-        - What's left immediately after is another DAG. - we simply repeat the process until there's no remaining vertex.
+  - How to choose a new vertex to be added to the linear order:
+    - Any vertex with no entering edges.
+      - In-degree: The # of edges entering a vertex
+      - Any vertex with `in-degree=0`
+        - Every DAG must have at least one vertex with in-degree `0` and at least one vertex with `out-degree=0`, for otherwise there would be a cycle.
+
+  - Any vertex `v` that is adjacent to `u` must appear somewhere after `u` in the linear order.
+    - Therefore, we can safely remove `u` and the edges leaving from `u` after adding it to the linear order.
+    - What's left immediately after is *another DAG*.
+      - we simply repeat the process until there's no remaining vertex.
 
     - How to represent a directed graph
-        - n * n adjacency matrix
-        - adjacency-list representation
+      - `n * n` adjacency matrix: each row and column correspodns to one vertex. the entry is `1` if the edge `(u, v)` is present or ``0` if there's no such edge.
+      - Adjacency-list representation: Lists of all the vertices adjacent to each vertex.
+        - How should we represent such lists
+          - Array: If we know/can fix the # of adjacent vertices
+          - Linked List: If we need to insert into the middle of the list
+            - Singly linked list: Only successor links
+            - Doubly linked list: Also with predecessor links
 
     - Running Time:
-        - Theta(n + m) time overall - assuming that adding and removing items to ad
+      - `Theta(n + m)` time overall - assuming that adding and removing items to a
 
 - Critical path in a PERT chart
-    - PERT chart: "Program Evaluation and Review Technique"
-        - The time to complete the entire job, even with as many tasks performed simultaneously possible, is given by the "critical path" in the PERT chart.
+  - PERT chart: "Program Evaluation and Review Technique"
+    - The time to complete the entire job, even with as many tasks performed simultaneously possible, is given by the "critical path" in the PERT chart.
 
     - "Path": A sequence of vertices and edges that allow you to get from one vertex to another (or back to itself)
-        - A critical path in a PERT chart is a path for which the sum of the task times is MAXIMUM over ALL PATHS.
-            - The sum of the task times along a critical path gives the minimum possible time for the entire job, no matter how many tasks are performed simultaneously. 
+      - A critical path in a PERT chart is a path for which the sum of the task times is MAXIMUM over ALL PATHS.
+        - The sum of the task times along a critical path gives the minimum possible time for the entire job, no matter how many tasks are performed simultaneously.
 
     - Rather than checking paths between all pairs of vertices in which one has in-degree 0 and one has out-degree 0, we can just add two 'dummy' vertices, "start" and "finish".
 
