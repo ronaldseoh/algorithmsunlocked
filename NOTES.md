@@ -196,7 +196,7 @@ Chapter 5. Directed Acyclic Graphs
     - Any vertex with no entering edges.
       - In-degree: The # of edges entering a vertex
       - Any vertex with `in-degree=0`
-        - Every DAG must have at least one vertex with in-degree `0` and at least one vertex with `out-degree=0`, for otherwise there would be a cycle.
+        - Every DAG must have at least one vertex with `in-degree=0` and at least one vertex with `out-degree=0`, for otherwise there would be a cycle.
 
   - Any vertex `v` that is adjacent to `u` must appear somewhere after `u` in the linear order.
     - Therefore, we can safely remove `u` and the edges leaving from `u` after adding it to the linear order.
@@ -208,7 +208,7 @@ Chapter 5. Directed Acyclic Graphs
       - Adjacency-list representation: Lists of all the vertices adjacent to each vertex.
         - How should we represent such lists
           - Array: If we know/can fix the # of adjacent vertices
-          - Linked List: If we need to insert into the middle of the list
+          - **Linked list**: If we need to insert into the middle of the list
             - Singly linked list: Only successor links
             - Doubly linked list: Also with predecessor links
 
