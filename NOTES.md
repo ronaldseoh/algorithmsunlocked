@@ -232,7 +232,7 @@ Chapter 5. Directed Acyclic Graphs
       - A shorted path from vertex `u` to vertex `v` is path whose sum of *edge* weights is minimum over all paths from `u` to `v`.
       - Shortest paths are not necessarily unique, as a directed graph from `u` to `v` could contain multiple paths whose weights achieve the minimum.
 
-- Shortest Path in a DAG: [See the code.](https://link.iamblogger.net/q60eo)
+- *Single-source* shortest path in a DAG: [See the code.](https://link.iamblogger.net/q60eo)
   - Get a topologically sorted linear order first, and then relax every vertex and their edges according to that sorted order.
   - `Relax()`: Determine whether passing through `u` to reach `v` gives us a shorter route than the previously known shortest path to `v`.
   - `Theta(n + m)` running time.
