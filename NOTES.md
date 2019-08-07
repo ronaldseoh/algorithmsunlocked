@@ -213,27 +213,29 @@ Chapter 5. Directed Acyclic Graphs
             - Doubly linked list: Also with predecessor links
 
     - Running Time:
-      - `Theta(n + m)` time overall - assuming that adding and removing items to a
+      - `Theta(n + m)` time overall - assuming that adding and removing items to adjacency list takes constant time.
 
 - Critical path in a PERT chart
   - PERT chart: "Program Evaluation and Review Technique"
     - The time to complete the entire job, even with as many tasks performed simultaneously possible, is given by the "critical path" in the PERT chart.
 
-    - "Path": A sequence of vertices and edges that allow you to get from one vertex to another (or back to itself)
-      - A critical path in a PERT chart is a path for which the sum of the task times is MAXIMUM over ALL PATHS.
-        - The sum of the task times along a critical path gives the minimum possible time for the entire job, no matter how many tasks are performed simultaneously.
+    - **Path**: A sequence of vertices and edges that allow you to get from one vertex to another (or back to itself)
 
-    - Rather than checking paths between all pairs of vertices in which one has in-degree 0 and one has out-degree 0, we can just add two 'dummy' vertices, "start" and "finish".
+    - A **critical path** in a PERT chart is a path for which the sum of the task times is *MAXIMUM* over *ALL PATHS*.
+      - The sum of the task times along a critical path gives the minimum possible time for the entire job, no matter how many tasks are performed simultaneously.
 
-    - Now, solve the problem by negating task times and finding the "shortest path" from start to finish.
+    - Rather than checking paths between all pairs of vertices in which one has `in-degree=0` and one has `out-degree=0`, we can just add two *dummy* vertices, *start* and *finish*.
 
-        - Weighted Directed Graph
-        - A shorted path from vertex u to vertex v is path whose sum of edge weights is minimum over all paths from u to v.
-        - Shortest paths are not necessarily unique, as a directed graph from u to v could contain multiple paths whose weights achieve the minimum.
+    - Now, solve the problem by *negating* task times and finding the *shortest path* from start to finish. (Negate so that we can in effect find a *maximum* path.)
 
-- Shortest Path in a DAG
-    - Use topological sort, and relax every vertex and their edges
-    - Theta(n + m) time.
+    - Weighted directed graph
+      - A shorted path from vertex `u` to vertex `v` is path whose sum of *edge* weights is minimum over all paths from `u` to `v`.
+      - Shortest paths are not necessarily unique, as a directed graph from `u` to `v` could contain multiple paths whose weights achieve the minimum.
+
+- Shortest Path in a DAG: [See the code.](https://link.iamblogger.net/q60eo)
+  - Get a topologically sorted linear order first, and then relax every vertex and their edges according to that sorted order.
+  - `Relax()`: Determine whether passing through `u` to reach `v` gives us a shorter route than the previously known shortest path to `v`.
+  - `Theta(n + m)` running time.
 
 Chapter 6. Shortest Paths
 -------------------------
