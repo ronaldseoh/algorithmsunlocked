@@ -239,14 +239,27 @@ Chapter 5. Directed Acyclic Graphs
 
 Chapter 6. Shortest Paths
 -------------------------
-- Dijkstra Algorithm
 
-    - Priority Queue: It's an ADT (Abstract Data Type).
-        - Insert(Q, v)
-        - Extract-Min(Q): Find the vertex with the smallest shortest[v]
-        - Decrease-Key(Q, v)
+- Chapter 5 was about finding shortest paths in a directed *acyclic* graph - it had to be acyclic so that we can do topological sort.
+  - But cycles are everywhere in real-life situation graphs
+    - Road network: Must have cycles or you won't be able to return to where you came from
 
-    - Simple Array Implementation: If we use a simple array (for priority queue), it will make Dijkstra do O(n^2) time since it will take O(n) time to find the smallest shortest[v] for each of n calls. Calls to Relax() will take O(m) altogether, but m is magnitude smaller than n^2 so it can be ignored.
+  - Single-pair shortest path problem: GPS finding the fastest route from one place to another
+    - It would use an algorithm that finds *all* shortest paths from the source, but pays attention only to the path that leads to the relevant destination.
+    - The thing is, you won't have to worry much about cycles as long as the weight of edges are *nonnegative*. Shortest paths are well defined for such graphs.
+
+  - Negative-weight cycles: Are they relevant in the real world?
+    - Yes. Arbitrage opportunity in currency trading.
+
+- Dijkstra Algorithm: [See the code.](https://link.iamblogger.net/f8t23)
+  - The idea: So this is similar to the shortest path algorithm for DAGs introduced in Chapter 5. However, instead of using topological sort to determine certain order of visits to all the vertices, we make use of priority queues to visit a vertex that have lowest `shortest[v]` each time.
+
+  - Priority Queue: It's an ADT (Abstract Data Type).
+    - `Insert(Q, v)`
+    - `Extract-Min(Q)`: Find the vertex with the smallest `shortest[v]`
+    - `Decrease-Key(Q, v)`
+
+    - Simple array implementation: If we use a simple array (for priority queue), it will make Dijkstra do O(n^2) time since it will take O(n) time to find the smallest shortest[v] for each of n calls. Calls to Relax() will take O(m) altogether, but m is magnitude smaller than n^2 so it can be ignored.
 
     - Binary Heap Implementation:
         - Binary Tree: vertices are called 'nodes', and the edges are undirected. each node has 2 nodes directly below them at maximum, which are called 'children'. Nodes with no children are called 'leaves.'
