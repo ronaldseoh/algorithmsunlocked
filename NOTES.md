@@ -140,7 +140,7 @@ Chapter 4. A Lower Bound for Sorting and How to Beat It
 -------------------------------------------------------
 
 - Really simple sort: [See the code.](https://link.iamblogger.net/dalbf)
-  - If we know that there's only `1` or `2` in the array, then we can just count the # of `1`s in the array to be `k`, set the first `k` indexes of an array to be `1`, and set the rest to be `2`. This algorithm involved no direct comparison between elements, and achieves `Theta(n)` time.
+  - The idea: If we know that there's only `1` or `2` in the array, then we can just count the # of `1`s in the array to be `k`, set the first `k` indexes of an array to be `1`, and set the rest to be `2`. This algorithm involved no direct comparison between elements, and achieves `Theta(n)` time.
 
 - The lower bound on "comparison sorting"
   - Comparison sort: Any sorting algorithm that outputs the sorted order by comparing the given elements. Note that really simple sort described above is NOT a comparison sort algorithm.
@@ -152,7 +152,7 @@ Chapter 4. A Lower Bound for Sorting and How to Beat It
         - This lower bound does not depend on the particular algorithm.
 
 - Counting Sort: [See the code.](https://link.iamblogger.net/x64ca)
-  - Generalization of really simple sort: If we know that `k` elements have sort keys equal to `x` and that `l` elements have sort keys less than `x`, then we know that the elements with sort keys equal to `x` should occupy positions `l+1` through `l+k` in the sorted array.
+  - The idea: Generalization of really simple sort - If we know that `k` elements have sort keys equal to `x` and that `l` elements have sort keys less than `x`, then we know that the elements with sort keys equal to `x` should occupy positions `l+1` through `l+k` in the sorted array.
 
   - `Theta(m + n)` time
     - `m` loop iterations for intializing the array containing the # of each `m` elements, and the `less` array.
@@ -233,7 +233,7 @@ Chapter 5. Directed Acyclic Graphs
       - Shortest paths are not necessarily unique, as a directed graph from `u` to `v` could contain multiple paths whose weights achieve the minimum.
 
 - *Single-source* shortest path in a DAG: [See the code.](https://link.iamblogger.net/q60eo)
-  - Get a topologically sorted linear order first, and then relax every vertex and their edges according to that sorted order.
+  - The idea: Get a topologically sorted linear order first, and then relax every vertex and their edges according to that sorted order.
   - `Relax()`: Determine whether passing through `u` to reach `v` gives us a shorter route than the previously known shortest path to `v`.
   - `Theta(n + m)` running time.
 
