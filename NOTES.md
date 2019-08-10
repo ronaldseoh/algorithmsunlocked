@@ -254,52 +254,59 @@ Chapter 6. Shortest Paths
 - Dijkstra Algorithm: [See the code.](https://link.iamblogger.net/f8t23)
   - The idea: So this is similar to the shortest path algorithm for DAGs introduced in Chapter 5. However, instead of using topological sort to determine certain order of visits to all the vertices, we make use of priority queues to visit a vertex that have lowest `shortest[v]` each time.
 
+  - Why does visiting the vertex with the lowest `shortest` value makes sense?
+    - Loop invariant: At the start of each iteration of the loop, `shortest[v]=sp(s, v)` for each vertex `v` not in the queue. That is, for each vertex `v` not in the queue, the value of `shortest[v]` is *already* the weight of a shortest path from `s` to `v`.
+      - So those `shortest[v]` values can never decrease after they leave the queue.
+        - Consider the vertex `u` in the queue with the lowest `shortest` value.
+        - Because the only edges remaining to be relaxed are edges leaving vertices in the queue, and every vertex in the queue has a `shortest[v]` value at least as large as `shortest[u]`.
+        - Since all edge weights are nonnegative, we must have `shortest[u] <= shortest[v] + weight(v, u)` for every vertex `v` in the queue, and so no future relaxation step will decrease `shortest[u]`.
+
   - Priority Queue: It's an ADT (Abstract Data Type).
     - `Insert(Q, v)`
     - `Extract-Min(Q)`: Find the vertex with the smallest `shortest[v]`
     - `Decrease-Key(Q, v)`
 
-    - Simple array implementation: If we use a simple array (for priority queue), it will make Dijkstra do O(n^2) time since it will take O(n) time to find the smallest shortest[v] for each of n calls. Calls to Relax() will take O(m) altogether, but m is magnitude smaller than n^2 so it can be ignored.
+    - Simple array implementation: If we use a simple array (for priority queue), it will make Dijkstra do `O(n^2)` time since it will take `O(n)` time to find the smallest `shortest[v]` for each of `n` calls. Calls to `Relax()` will take `O(m)` altogether, but `m` is magnitude smaller than `n^2` so it can be ignored.
 
-    - Binary Heap Implementation:
-        - Binary Tree: vertices are called 'nodes', and the edges are undirected. each node has 2 nodes directly below them at maximum, which are called 'children'. Nodes with no children are called 'leaves.'
+    - Binary Heap Implementation: [See the code for binary heap priority queue here.](https://link.iamblogger.net/i2-r4)
+      - Binary Tree: vertices are called *nodes*, and the edges are undirected. each node has 2 nodes directly below them at maximum, which are called *children*. Nodes with no children are called *leaves*.
 
-        - Binary Heap: 3 properties
-            (1) The tree is COMPLETELY FILLED on all levels, except possibly the lowest, which is filled from the left up to a point.
-            (2) Each node contains a key, shown inside each node in the figure.
-            (3) The keys obey the HEAP PROPERTY: The key of each node is less than or equal to the keys of its children.
-                
-            (Corollary)
-                - We can store a binary heap in an array.
-                - The node with the minimum key must always be at position 1.
-                - The children of the node at position i are at positions 2i and 2i + 1.
-                - The parent will be at floor(i/2).
-                - The height of the tree will be floor(lg n).
-                    - We can traverse a path from the root down to a leaf in O(lg n) time.
+      - Binary Heap: 3 properties
+        1. The tree is COMPLETELY FILLED on all levels, except possibly the lowest, which is filled from the left up to a point.
+        2. Each node contains a key, shown inside each node in the figure.
+        3. The keys obey the **heap property**: The key of each node is less than or equal to the keys of its children.
 
-            - Because binary heaps have height floor(lg n), we can perform the three priority queue operations in O(lg n) time each.
+        - Corollary:
+          - We can store a binary heap in an array.
+          - The node with the minimum key must always be at position `1`.
+          - The children of the node at position `i` are at positions `2i` and `2i + 1`.
+          - The parent will be at `floor(i/2)`.
+          - The height of the tree will be `floor(lg n)`.
+          - We can traverse a path from the root down to a leaf in `O(lg n)` time.
 
-        - With a binary heap priority queue,
-            - inserting vertices would take O(n * lg n) time (Theta(n) in reality, since all of vertices initially have infinity weights except for the source vertex.)
-            - ExtractMin would take O(n * lg n)
-            - DecreaseKeys to take O(m * lg n)
+      - Because binary heaps have height `floor(lg n)`, **we can perform the three priority queue operations in `O(lg n)` time each.**
 
-        - When the graph is sparse - the number m of edges is much less than n^2 (n^2 is required by ExtractMin Operations in a simple array implementation) - implementing the priority queue with a binary heap is more efficient.
-            - ex) graphs that model road networks m ~ 4n.
-    
-        - On the other hand, when the graph is dense, m is close to n^2, so that the graph contains many edges, the O(m * lg n) time that Dijkstra's algorithm spends in DecreaseKey calls can make it slower than using a simple array.
+      - With a binary heap priority queue,
+        - Inserting vertices would take `O(n * lg n)` time (`Theta(n)` in reality, since all of vertices will initially have infinity weights except for the source vertex.)
+        - `ExtractMin(Q)` would take `O(n * lg n)`
+        - `Decrease-Key(Q, v)` to take `O(m * lg n)`
 
-        - BTW, we can do heap sort using a binary heap.
-            - O(n * lg n) time when inserting elements to a heap.
-            - O(n) time if we build a heap directly within the array.
+      - When the graph is sparse - the number `m` of *edges* is much less than `n^2` (`n^2` is required by `ExtractMin` Operations in a simple array implementation) - implementing the priority queue with a binary heap is more efficient.
+        - Example: graphs that model road networks `m` `~` `4n`.
+
+      - On the other hand, when the graph is dense, `m` is close to `n^2`, so that the graph contains many edges, `O(m * lg n)` time that Dijkstra's algorithm spends in `Decrease-Key` calls can make it slower than using a simple array.
+
+      - By the way, we can do heap sort using a binary heap.
+        - `O(n * lg n)` time when inserting elements to a heap.
+        - `O(n)` time if we build a heap directly within the array.
 
     - Fibonacci heap ('F-heap') implementation
-        - n Insert/ExtractMin calls: O(n * lg n)
-        - m DecreaseKey calls: Theta(m) 
-        - In total, O(n * lg n + m) time.
-        - However, people don't use F-heap too much because
-            - An individual operation might take much longer than average.
-            - F-heaps are complicated, so the constant factors hidden are not as good as for binary heaps.
+      - `n` `Insert`/`ExtractMin` calls: `O(n * lg n)`
+      - `m` `DecreaseKey` calls: `Theta(m)`
+      - In total, `O(n * lg n + m)` time.
+      - However, people don't use F-heap too much because
+        - An individual operation might take much longer than average.
+        - F-heaps are complicated, so the constant factors hidden are not as good as for binary heaps.
 
 - The Bellman-Ford Algorithm
     - This algorithm works with negative edge weights, and we can use its output to detect a negative weight cycle.
