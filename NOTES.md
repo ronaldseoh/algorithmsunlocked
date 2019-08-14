@@ -295,6 +295,9 @@ Chapter 6. Shortest Paths
         - Inserting vertices would take `O(n * lg n)` time (`Theta(n)` in reality, since all of vertices will initially have infinity weights except for the source vertex.)
         - `ExtractMin(Q)` would take `O(n * lg n)`
         - `Decrease-Key(Q, v)` to take `O(m * lg n)`
+        - Total time complexity:
+          - `O((n+m) * lg n)` time
+          - However, we could say `O(m * lg n)` instead as it is usually reasonable to assume that `m > n`.
 
       - When the graph is sparse - the number `m` of *edges* is much less than `n^2` (`n^2` is required by `ExtractMin` Operations in a simple array implementation) - implementing the priority queue with a binary heap is more efficient.
         - Example: graphs that model road networks `m` `~` `4n`.
