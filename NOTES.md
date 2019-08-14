@@ -235,6 +235,11 @@ Chapter 5. Directed Acyclic Graphs
 - *Single-source* shortest path in a DAG: [See the code.](https://link.iamblogger.net/q60eo)
   - The idea: Get a topologically sorted linear order first, and then relax every vertex and their edges according to that sorted order.
   - `Relax()`: Determine whether passing through `u` to reach `v` gives us a shorter route than the previously known shortest path to `v`.
+  - Notice that we will end up relaxing **every single edges** in the given DAG.
+    - The edges of each shortest path will be interspersed, in order, as we go through all the edges and relax each one.
+    - Why does this work?
+      - Suppose that a shortest path from `s` to `v` visits the vertices `s`,`v_1`, `v_2`, `v_3`, ... , `v_k`, `v`, in that order.
+      - After edge `(s, v_1)` has been relaxed, `shortest[v_1]` must have the shortest-path weight for `v_1`, and `pred[v_1]` must be `s`. After `(v_1, v_2)` has been relaxed, `shortest[v_2]` and `pred[v_2]` must be correct. And so on, up through relaxing `(v_k, v)`, after which `shortest[v]` and `pred[v]` have their correct values.
   - `Theta(n + m)` running time.
 
 Chapter 6. Shortest Paths
