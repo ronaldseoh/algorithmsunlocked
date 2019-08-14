@@ -316,22 +316,25 @@ Chapter 6. Shortest Paths
         - An individual operation might take much longer than average.
         - F-heaps are complicated, so the constant factors hidden are not as good as for binary heaps.
 
-- The Bellman-Ford Algorithm
-    - This algorithm works with negative edge weights, and we can use its output to detect a negative weight cycle.
+- The Bellman-Ford Algorithm: [See the code.](https://link.iamblogger.net/tqqyj)
+  - The idea: With the initial shortest and pred values, it just relaxes all `m` edges `n-1` times.
+    - Every acyclic path must contain *at most* `n-1` edges. (since there are `n` vertices and more than `n-1` edges implies that there's a cycle.)
+    - Each time the loop runs through all the edges, each edge in the shortest path would get relaxed one by one.
+    - After the `(n-1)`st time, all edges on the shortest path have been relaxed, in order, and therefore `shortest[v]` and `pred[v]` are correct.
 
-    - With the initial shortest and pred values, it just relaxes all m edges n-1 times.
-        - Every acyclic path must contain AT MOST n-1 edges. (since there are n vertices and more than n-1 edges implies that there's a cycle.)
-        - Each time the loop runs through all the edges, each edge in the cycle would get relaxed one by one.
-    
-    - Running Time: THETA(n * m) since we go over exactly m edges n-1 times.
+  - Unlike Dijkstra, the Bellman-Ford algorithm works with negative edge weights, and we can use its output to detect a negative weight cycle.
 
-    - Find a Negative Weight Cycle Procedure:
-        - Now, every edges should have been relaxed with n-1 iterations. If we run the relaxation once more and find that there is a node that shortest[v] would decrease once more, it means there's at least one edge (u, v) on the cycle with a negative weight.
+  - Running time: `Theta(n * m)` since we go over exactly `m` edges `n-1` times.
 
-        - Running Time: To find whether a negative-weight cycle exists, relax each edge once more until either relaxing changes a shortest value or all edges have been relaxed, taking O(m) time. If there is a negative-weight cycle, it can contain at most n edges, and so the time to trace it out is O(n).
+  - Find a Negative Weight Cycle Procedure: [See the code.](https://link.iamblogger.net/uwj94)
+    - Now, every edges should have been relaxed with `n-1` iterations. If we run the relaxation once more and find that there is a node that `shortest[v]` would decrease once more, it means there's at least one edge `(u, v)` on the cycle with a negative weight.
+
+    - Running Time: To find whether a negative-weight cycle exists, relax each edge once more until either relaxing changes a shortest value or all edges have been relaxed, taking `O(m)` time. If there is a negative-weight cycle, it can contain at most `n` edges, and so the time to trace it out is `O(n)`.
 
     - Arbitrage Opportunity
-        - Do the logarithm of exchange rates and negate them
+      - Do the logarithm of exchange rates and negate them
+      - See if there's any negative-weight cycles
+      - The total # of edges `m` is `n + n * (n-1) = n^2`, so the Bellman-Ford takes `O(n^3)` time, along with another `O(n^2)` to determine whether there's a negative-weight cycle, and another `O(n)` to trace it out if it exists.
 
 - The Floyd-Warshall Algorithm
     - The All-Pairs Shortest-Paths problem
