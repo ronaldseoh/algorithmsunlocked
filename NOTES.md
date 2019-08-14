@@ -304,7 +304,7 @@ Chapter 6. Shortest Paths
 
       - On the other hand, when the graph is dense, `m` is close to `n^2`, so that the graph contains many edges, `O(m * lg n)` time that Dijkstra's algorithm spends in `Decrease-Key` calls can make it slower than using a simple array.
 
-      - By the way, we can do heap sort using a binary heap.
+      - By the way, we can do heap sort using a binary heap. ([See the code for heap sort from here.](https://link.iamblogger.net/i9f-t))
         - `O(n * lg n)` time when inserting elements to a heap.
         - `O(n)` time if we build a heap directly within the array.
 
@@ -336,36 +336,49 @@ Chapter 6. Shortest Paths
       - See if there's any negative-weight cycles
       - The total # of edges `m` is `n + n * (n-1) = n^2`, so the Bellman-Ford takes `O(n^3)` time, along with another `O(n^2)` to determine whether there's a negative-weight cycle, and another `O(n)` to trace it out if it exists.
 
-- The Floyd-Warshall Algorithm
-    - The All-Pairs Shortest-Paths problem
-        - Find a shortest path from every vertex to every vertex
-            - If the graph is sparse, then we could just run Dijkstra for each of the n vertices.
-            - However, if the graph is dense, the running time would become unbearable.
+- The Floyd-Warshall Algorithm: [See the code.](https://link.iamblogger.net/afky5)
+  - The All-Pairs Shortest-Paths Problem
+    - Find a shortest path from every vertex to every vertex
+      - If the graph is sparse, then we could just run Dijkstra (without negative-weight edges) or Bellman-Ford for each of the `n` vertices.
+      - However, if the graph is dense, the running time would become unbearable.
 
-    - We can solve the all-pairs problem in THETA(n^3) time with the Floyd-Warshall.
-        - Regardless of the graph's sparsity
-        - Works with negative-weight edges but not negative-weight cycles
-        - The constant factor hidden in the Theta-notation is small.
-        - Dynamic Programming
+    - We can solve the all-pairs problem in `Theta(n^3)` time with the Floyd-Warshall.
+      - Regardless of the graph's sparsity
+      - Works with negative-weight edges but not negative-weight cycles
+      - The constant factor hidden in the Theta-notation is small.
+      - Dynamic Programming
 
-    - The algorithm relies on an obvious property of shortest paths:
-        - The portion of the shortest route would be the shortest route for that particular source to destination as well.
+  - The idea: The algorithm relies on an obvious property of shortest paths:
+    - The portion of the shortest route would be the shortest route for that particular source to destination as well.
 
-    - The Floyd-Warshall keeps track of path weights and vertex predecessors in arrays indexed in not just one dimension, but in three dimensions.
+  - The Floyd-Warshall keeps track of path weights and vertex predecessors in arrays indexed in not just one dimension, but in three dimensions.
+    - More like a one-dimensional array of two-dimensional arrays.
 
-    - Theta(n^3) time and space
-        - BUT we can do Theta(n^2) if we don't need to keep track of changes between x
+  - We assume that all the vertices are numbered from `1` to `n`.
+    - We define `shortest[u, v, x]` to be the weight of a shortest path from vertex `u` to vertex `v` in which each intermediate vertex other than `u` and `v` is numbered **`x`** or lower.
+    - `shortest[u, v, n] ==  sp(u, v)` (the weight of a shortest path from `u` to `v`.)
+  
+  - Suppose `p` is the one with minimum weight, among all the paths from `u` to `v` that have no vertex numbered higher than `x`.
+    - Then `p` would fall into one of two categories:
+      (1) `x` is not included in `p`. Then `shortest[u, v, x] == shortest[u, v, x-1]`.
+      (2) `x` is included in `p`. Then `shortest[u, v, x] == shortest[u, x, x-1] + shortest[x, v, x-1]`.
+    - Because either `x` is an intermediate vertex in a shortest path from `u` to `v` or it's not, we can say that `shortest[u, v, x]` is the smaller of the two mentioned above.
 
-- Dynamic Programming
-    - "Optimal Substructure" conditions for applying dynamic programming:
-        (1) We are trying to find an optimal solution to a problem.
-        (2) We can break an instance of the problem into instances of one or more subproblems.
-        (3) We use solutions to the subproblem(s) to solve the original problem, and
-        (4) if we use a solution to a subproblem within an optimal solution to the original problem, then the subproblem solution we use must be optimal for the subproblem.
+  - `Theta(n^3)` time and space
+    - But we can do `Theta(n^2)` if we don't need to keep track of changes between `x` ()
 
-    - In dynamic programming, we have some notion of "size" of a subproblem, and we often solve the subproblems in increasing order of size, so that we solve the smallest subproblems first, and then once we have optimal solutions to smaller subproblems, we can try to solve larger subproblems optimally using optimal solutions to the smaller subprolems.
+  - Dynamic Programming
+    - *"Optimal substructure"* conditions for applying dynamic programming:
+      (1) We are trying to find an optimal solution to a problem.
+      (2) We can break an instance of the problem into instances of one or more subproblems.
+      (3) We use solutions to the subproblem(s) to solve the original problem, and
+      (4) if we use a solution to a subproblem within an optimal solution to the original problem, then the subproblem solution we use must be optimal for the subproblem.
 
-    - Bottom Up / Top Down
+    - In dynamic programming, we have some notion of *"size"* of a subproblem, and we often solve the subproblems in increasing order of size, so that we solve the smallest subproblems first, and then once we have optimal solutions to smaller subproblems, we can try to solve larger subproblems optimally using optimal solutions to the smaller subprolems.
+
+    - Bottom Up: A common practice in DP is to store optimal solutions to subproblems in a table and then look them up as we compute an optimal solution to the original problem.
+
+    - Top Down: Working from larger subproblems to smaller ones, storing the result of each subproblem in a table.
 
 Chapter 7. Algorithms on Strings
 --------------------------------
