@@ -360,8 +360,8 @@ Chapter 6. Shortest Paths
   
   - Suppose `p` is the one with minimum weight, among all the paths from `u` to `v` that have no vertex numbered higher than `x`.
     - Then `p` would fall into one of two categories:
-      (1) `x` is not included in `p`. Then `shortest[u, v, x] == shortest[u, v, x-1]`.
-      (2) `x` is included in `p`. Then `shortest[u, v, x] == shortest[u, x, x-1] + shortest[x, v, x-1]`.
+      1. `x` is not included in `p`. Then `shortest[u, v, x] == shortest[u, v, x-1]`.
+      2. `x` is included in `p`. Then `shortest[u, v, x] == shortest[u, x, x-1] + shortest[x, v, x-1]`.
     - Because either `x` is an intermediate vertex in a shortest path from `u` to `v` or it's not, we can say that `shortest[u, v, x]` is the smaller of the two mentioned above.
 
   - `Theta(n^3)` time and space
@@ -369,10 +369,10 @@ Chapter 6. Shortest Paths
 
   - Dynamic Programming
     - *"Optimal substructure"* conditions for applying dynamic programming:
-      (1) We are trying to find an optimal solution to a problem.
-      (2) We can break an instance of the problem into instances of one or more subproblems.
-      (3) We use solutions to the subproblem(s) to solve the original problem, and
-      (4) if we use a solution to a subproblem within an optimal solution to the original problem, then the subproblem solution we use must be optimal for the subproblem.
+      1. We are trying to find an optimal solution to a problem.
+      2. We can break an instance of the problem into instances of one or more subproblems.
+      3. We use solutions to the subproblem(s) to solve the original problem, and
+      4. if we use a solution to a subproblem within an optimal solution to the original problem, then the subproblem solution we use must be optimal for the subproblem.
 
     - In dynamic programming, we have some notion of *"size"* of a subproblem, and we often solve the subproblems in increasing order of size, so that we solve the smallest subproblems first, and then once we have optimal solutions to smaller subproblems, we can try to solve larger subproblems optimally using optimal solutions to the smaller subprolems.
 
