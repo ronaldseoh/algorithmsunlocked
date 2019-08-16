@@ -318,7 +318,7 @@ Chapter 6. Shortest Paths
 
 - The Bellman-Ford Algorithm: [See the code.](https://link.iamblogger.net/tqqyj)
   - The idea: With the initial shortest and pred values, it just relaxes all `m` edges `n-1` times.
-    - Every acyclic path must contain *at most* `n-1` edges. (since there are `n` vertices and more than `n-1` edges implies that there's a cycle.)
+    - Every *acyclic path* must contain *at most* `n-1` edges. (since there are `n` vertices and more than `n-1` edges implies that there's a cycle.)
     - Each time the loop runs through all the edges, each edge in the shortest path would get relaxed one by one.
     - After the `(n-1)`st time, all edges on the shortest path have been relaxed, in order, and therefore `shortest[v]` and `pred[v]` are correct.
 
@@ -382,22 +382,26 @@ Chapter 6. Shortest Paths
 
 Chapter 7. Algorithms on Strings
 --------------------------------
+
 - Focusing on 3 tasks on strings:
-    (1) Find a longest common subsequence of two strings
-    (2) Given a set of operations that can transform one string to another, and the cost of each operation, find a lowest-cost way to transform one string to another.
-    (3) Find all occurrences of a pattern string within a string of text.
+  1. Find a longest common subsequence of two strings
+  2. Given a set of operations that can transform one string to another, and the cost of each operation, find a lowest-cost way to transform one string to another.
+  3. Find all occurrences of a pattern string within a string of text.
 
-- Longest Common Sequence
-    - Subsequence isn't necsessarily a substring
-    - We use dynamic programming methods: We can see that an LCS of 2 strings contains within it an LCS of the prefixes of the two strings.
-    - We approach the problem of finding an LCS of strings X and Y in 2 steps:
-        (1) We'll find the length of an LCS X and Y, as well as the lengths of the longest common subsequences of all prefixes of X and Y.
-        (2) After computing the LCS lengths, we will 'reverse engineer' how we computed these lengths to find an actual LCS of X and Y.
+- Longest common sequence (LCS) problem
+  - Subsequence isn't necsessarily a substring
+  - We could check every single possible subsequence one by one: but there would be `2^m` subsequences possible.
+  - Instead, we use **dynamic programming** methods: We can see that an LCS of 2 strings contains within it an LCS of the *prefixes* of the two strings.
+  - We approach the problem of finding an LCS of strings `X` and `Y` in 2 steps:
+    1. We'll find the length of an LCS `X` and `Y`, as well as the lengths of the longest common subsequences of all prefixes of `X` and `Y`.
+    2. After computing the LCS lengths, we will 'reverse engineer' how we computed these lengths to find an actual LCS of `X` and `Y`.
 
-    - Compute LCS Table: Theta(m*n) time.
-    - Assemble LCS: O(m+n) time.
-        - Observe that in each recursive call, either i decreases, j decreases, or both decrease.
-        - After m+n recursive calls, therefore, we are guaranteed that one or the other of these indices hit 0 and the recursion bottoms out.
+    - Compute LCS table: [See the code.](https://link.iamblogger.net/vq3hp)
+      - `Theta(m*n)` time.
+    - Assemble LCS: [See the code.](https://link.iamblogger.net/hf8lb)
+      - `O(m+n)` time.
+      - Observe that in each recursive call, either `i` decreases, `j` decreases, or both decreases.
+      - After `m+n` recursive calls, therefore, we are guaranteed that one or the other of these indices hit 0 and the recursion bottoms out.
 
 - Transforming one string to another
     - To find a sequence of operations that transform the string X into another string Y and has a minimum total cost.
