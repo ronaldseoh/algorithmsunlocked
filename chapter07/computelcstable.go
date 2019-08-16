@@ -2,8 +2,8 @@
 // implementations of the algorithms introduced in Chapter 7.
 package chapter07
 
-// ComputeLcsTable outputs the lengths of common subsequences between
-// different substrings from two input strings X and Y.
+// ComputeLcsTable outputs the table containing lengths of
+// common subsequences of two input strings X and Y and their prefixes.
 func ComputeLcsTable(X string, Y string) [][]int {
 
 	lcsTable := make([][]int, len(X)+1)

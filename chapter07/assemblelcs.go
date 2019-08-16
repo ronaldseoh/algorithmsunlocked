@@ -2,8 +2,8 @@
 // implementations of the algorithms introduced in Chapter 7.
 package chapter07
 
-// AssembleLcs outputs the lengths of common subsequences between
-// different substrings from two input strings X and Y.
+// AssembleLcs outputs the string containing longest common subsequence (LCS)
+// of the chosen prefixes of two input strings X and Y.
 func AssembleLcs(X string, Y string, lcsTable [][]int, i int, j int) string {
 
 	lcs := ""
