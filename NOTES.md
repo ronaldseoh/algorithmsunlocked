@@ -399,9 +399,9 @@ Chapter 7. Algorithms on Strings
     - Compute LCS table: [See the code.](https://link.iamblogger.net/vq3hp)
       - `Theta(m*n)` time.
     - Assemble LCS: [See the code.](https://link.iamblogger.net/hf8lb)
-      - `O(m+n)` time.
-      - Observe that in each recursive call, either `i` decreases, `j` decreases, or both decreases.
-      - After `m+n` recursive calls, therefore, we are guaranteed that one or the other of these indices hit 0 and the recursion bottoms out.
+      - `O(m+n)` time. Why?
+        - Observe that in each recursive call, either `i` decreases, `j` decreases, or both decreases.
+        - After `m+n` recursive calls, therefore, we are guaranteed that one or the other of these indices hit 0 and the recursion bottoms out.
 
 - Transforming one string to another
     - To find a sequence of operations that transform the string X into another string Y and has a minimum total cost.
