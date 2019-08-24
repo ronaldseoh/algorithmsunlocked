@@ -401,42 +401,46 @@ Chapter 7. Algorithms on Strings
     - Assemble LCS: [See the code.](https://link.iamblogger.net/hf8lb)
       - `O(m+n)` time. Why?
         - Observe that in each recursive call, either `i` decreases, `j` decreases, or both decreases.
-        - After `m+n` recursive calls, therefore, we are guaranteed that one or the other of these indices hit 0 and the recursion bottoms out.
+        - After `m+n` recursive calls, therefore, we are guaranteed that one or the other of these indices hit `0` and the recursion bottoms out.
 
 - Transforming one string to another
-    - To find a sequence of operations that transform the string X into another string Y and has a minimum total cost.
-    - Available Operations:
-        - Copy: When we can directly make z_j = x_i. Then do i++, j++
-        - Replace: When we have to put a new character a into z_j & ignore x_i. i++, j++
-        - Delete: Ignore x_i and move on. i++
-        - Insert: Insert a into z_j. j++
+  - To find a sequence of operations that transform the string `X` into another string `Y` and has a *minimum total cost*.
+  
+  - Available Operations:
+    - `Copy`: When we can directly make `z_j = x_i`. Then do `i++`, `j++`
+    - `Replace`: When we have to put a new character `a` into `z_j` & ignore `x_i`. `i++`, `j++`
+    - `Delete`: Ignore `x_i` and move on. `i++`
+    - `Insert`: Insert `a` into `z_j`. `j++`
 
-    - Delete and insert can be applied at every stage i,j > 0.
-    - Only one of copy and replace can be applied.
-    - Then cost[i, j] = Cost of transforming X_i into Y_j is the smallest of the following four:
-        - cost[i-1, j-1] + c_C, but only if x_i and y_j are the same character.
-        - cost[i-1, j-1] + c_R, but only if x_i and y_j differ.
-        - cost[i-1, j] + c_D
-        - cost[i, j-1] + c_I
+  - `Delete` and `Insert` can be applied at every stage `i,j > 0`.
+  - Only one of `Copy` and `Replace` can be applied at each step.
 
-    - The ComputeTransformTables procedure fills in each entry of the tables in constant time, just as the ComputeLcsTable procedure does. Because each of the tables contains (m+1) * (n+1) entries, ComputeTransformTables run in Theta(m*n) time.
+  - Then `cost[i, j] =` cost of transforming `X_i` into `Y_j` is the *smallest* of the following four:
+    - `cost[i-1, j-1] + c_C`, but only if `x_i` and `y_j` are the same character.
+    - `cost[i-1, j-1] + c_R`, but only if `x_i` and `y_j` differ.
+    - `cost[i-1, j] + c_D`
+    - `cost[i, j-1] + c_I`
 
-    - AssembleTransformation: runs in O(m+n) time, with reasoning similar to AssembleLcs.
+  - `ComputeTransformTables`: [See the code.](https://link.iamblogger.net/wcqpg)
+    - fills in each entry of the tables in constant time, just as `ComputeLcsTable` does. Because each of the tables contains `(m+1) * (n+1)` entries, `ComputeTransformTables` run in `Theta(m*n)` time.
+
+  - `AssembleTransformation`: [See the code.](https://link.iamblogger.net/95cvm)
+    - runs in `O(m+n)` time, with reasoning similar to `AssembleLcs`.
 
 - String matching
-    - Given a text string T and a pattern string P, we want to find all occurrences of P in T. 
-    - Because we want to find all occurrences of the pattern P in the text T, a solution will be all the amounts that we can shift P by to find it in T.
-        - Put another way, we say that pattern P occurs with shift s in text T if the substring of T that starts at t_(s+1) is the same as the pattern P.
+  - Given a text string `T` and a pattern string `P`, we want to find all occurrences of `P` in `T`.
+  - Because we want to find all occurrences of the pattern `P` in the text `T`, a solution will be all the amounts that we can shift `P` by to find it in `T`.
+    - Put another way, we say that pattern `P` occurs with shift `s` in text `T` if the substring of `T` that starts at `t_(s+1)` is the same as the pattern `P`.
 
-        - Minimum possible shift = 0, Maximum = n-m.
+  - Minimum possible shift `= 0`, Maximum `= n-m`.
 
-    - Naive approach here whould be checking for m characters for every possible shifts from 0 to n-m.
-        - O((n-m) * m).
+  - Naive approach here whould be checking for `m` characters for every possible shifts from `0` to `n-m`.
+    - `O((n-m) * m)`.
 
-    - Finite Automaton (FA)
-        - A set of states and a way to go from state to state based on a sequence of input characters.
-        - Based on the state it's in and the character it has just consumed, it moves to a new state.
-        - In our string-matching application, the input sequence will be the characters of the text T, and the FA will have m+1 states, one more than the number of characters in the pattern P, numbered from 0 to m.
+  - Finite Automaton (FA)
+    - A set of states and a way to go from state to state based on a sequence of input characters.
+    - Based on the state it's in and the character it has just consumed, it moves to a new state.
+    - In our string-matching application, the input sequence will be the characters of the text T, and the FA will have m+1 states, one more than the number of characters in the pattern P, numbered from 0 to m.
         - The FA starts in state 0. When it's in state k, the k most recent text characters it has consumed match the first k characters of the pattern. Whenever the FA gets to state m, therefore, it has just seen the entire pattern in the text.
 
         - The FA internally stores a table next-state, which is indexed by all the states and all possible input characters. The value in next-state[s, a] is the number of the state to move to if the FA is currently in state s and it has just consumed character a from the next. 
