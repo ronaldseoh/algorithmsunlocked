@@ -434,33 +434,43 @@ Chapter 7. Algorithms on Strings
 
   - Minimum possible shift `= 0`, Maximum `= n-m`.
 
-  - Naive approach here whould be checking for `m` characters for every possible shifts from `0` to `n-m`.
-    - `O((n-m) * m)`.
+  - Naive approach here whould be checking `m` characters for every possible shifts from `0` to `n-m`.
+    - `O((n-m) * m)` time.
 
   - Finite Automaton (FA)
     - A set of states and a way to go from state to state based on a sequence of input characters.
     - Based on the state it's in and the character it has just consumed, it moves to a new state.
-    - In our string-matching application, the input sequence will be the characters of the text T, and the FA will have m+1 states, one more than the number of characters in the pattern P, numbered from 0 to m.
-        - The FA starts in state 0. When it's in state k, the k most recent text characters it has consumed match the first k characters of the pattern. Whenever the FA gets to state m, therefore, it has just seen the entire pattern in the text.
 
-        - The FA internally stores a table next-state, which is indexed by all the states and all possible input characters. The value in next-state[s, a] is the number of the state to move to if the FA is currently in state s and it has just consumed character a from the next. 
+    - In our string-matching application, the input sequence will be the characters of the text `T`, and the FA will have `m+1` states, one more than the number of characters in the pattern `P`, numbered from `0` to `m`.
 
-        - FA-String-Matcher running time: Theta(n)
+      - The FA starts in state `0`.
 
-        - How do I get next-state?
-            - The goal: Given the states of prefixes P_0 through P_n, we need to determine what the next states would be when we add a new character a to these states.
-            - Since we are at the current state with some prefix P_k, we've already seen the first k characters of P. If we add a new character to this P_k, then the new string could be P_(k+1), but the whole new string could also be non-prefix of P.
-                - So we need to determine what is the longest prefix of P that could serve as a 'suffix' of P_k + a, so that even if the new string isn't P_(k+1), we could salvage the suffix as much as possible to continue looking for P without checking from the scratch.
+      - When it's in state `k`, the `k` most recent text characters it has consumed match the first `k` characters of the pattern. Whenever the FA gets to state `m`, therefore, it has just seen the entire pattern in the text.
 
-        - Running time for building next-state: O(m^3 * q), 
-            - since we are checking for m+1 possible states,
-            - with suffix-checking comparing at most m suffix candidates, 
-            - checking at most m characters each,
-            - and lastly with q new character choices.
+      - The FA internally stores a table `next-state`, which is indexed by all the states and all possible input characters.
+        - The value in `next-state[s, a]` is the number of the state to *move to* if the FA is currently in state `s` and it has just consumed character `a` from the next.
 
-    - So total running time: Theta(n) + O(m^3 * q).
+      - `FA-String-Matcher` running time: `Theta(n)`
 
-    - KMP (Knuth, Morris, and Pratt) algorithm: Avoids creating next-state and uses move-to array -> Theta(m) time. Actual pattern matching still takes Theta(n) time though
+    - How do I get `next-state`?
+      - The goal: Given the states of prefixes `P_0` through `P_n`, we need to determine what the next states would be when we add a new character `a` to these states.
+
+      - Since we are at the current state with some prefix `P_k`, we've already seen the first `k` characters of `P`. If we add a new character to this `P_k`, then the new string could be `P_(k+1)`, but the whole new string could also be non-prefix of `P`.
+
+      - So we need to find the longest prefix of `P` that could serve as **a *suffix* of `P_k + a`**, so that even if the new string isn't `P_(k+1)`, we could salvage the suffix as much as possible to continue looking for `P` without checking from the scratch.
+        - We can *always* find such prefix, since the empty string is a prefix and a suffix of every string.
+          - In this case, `next-state[k, a] = 0`.
+
+      - Running time for building `next-state`: `O(m^3 * q)`
+        - Since we are checking for `m+1` possible states,
+        - With suffix-checking comparing at most `m` suffix candidates,
+        - checking at most `m` characters each,
+        - and lastly with `q` new character choices.
+
+    - So **total running time**: `O(m^3 * q) + Theta(n)`.
+
+  - KMP (Knuth, Morris, and Pratt) algorithm: avoids creating `next-state` and uses `move-to` array
+    - `Theta(m)` time. Actual pattern matching still takes `Theta(n)` time though
 
 Chapter 8. Foundations of Cryptography
 --------------------------------------
