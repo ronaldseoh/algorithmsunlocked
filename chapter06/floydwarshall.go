@@ -32,7 +32,7 @@ func FloydWarshall(G *DiGraph) (map[int][][]int, map[int][][]int) {
 	}
 
 	// Assigning initial values for shortest[-1] and pred[-1]
-	// For paths with just one vertex (which actually doesn't leave that vertex), shortest = 0.
+	// For paths with just one vertex (where we don't actually leave that vertex), shortest = 0.
 	// For paths where direct edges from u to v exist, assign the weight of that edge.
 	// For other paths where edges do not exist, assign positive infinity value.
 	for u := 0; u < G.Length; u++ {

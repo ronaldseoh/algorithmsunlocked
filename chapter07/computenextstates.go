@@ -18,7 +18,7 @@ func ComputeNextStates(P string, availableCharacters []string) []map[string]int 
 			// i == the length of prefix P_i of P
 			var i int
 
-			// if len(pka) becomes biggers than len(P),
+			// if len(pka) becomes bigger than len(P),
 			// start from i = len(P) since it
 			// does not make sense to get next states
 			// that have strings longer than P.
