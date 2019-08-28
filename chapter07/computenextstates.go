@@ -53,8 +53,7 @@ func ComputeNextStates(P string, availableCharacters []string) []map[string]int 
 			}
 
 			// With the suffix found, we can now say that
-			// when we add new character 'a', then the next state becomes
-			// i.
+			// when we add new character 'a', then the next state becomes i.
 			nextStates[k][a] = i
 		}
 	}
