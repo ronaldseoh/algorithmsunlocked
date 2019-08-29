@@ -474,62 +474,67 @@ Chapter 7. Algorithms on Strings
 
 Chapter 8. Foundations of Cryptography
 --------------------------------------
+
 - Simple Substitution Ciphers
-    - Shift cipher
-    - Permutation
-        - n! permutations
-        - You can use letter frequencies and letter combinations to narrow down the choices.
-    - Both the sender and receiver have to agree on the key
+  - Julius Caesar's shift cipher
+  - Permutation: Match each character to some other unique character
+    - `n!` permutations
+    - You can use letter frequencies and letter combinations to narrow down the choices.
+      - Example: the letter `r` appearing the most often in some ciphertext -> Guess that its corresponding plaintext character is `e`, the most commonly occurring letter in English texts.
+  - Both the sender and receiver have to agree on the key
 
 - Symmetric-key cryptography
-    - When the sender and receiver use the same key
-    - One-time pads
-        - Works on bits
-        - One-time pads apply XOR to bits.
-            - X XOR 0 = X, X XOR 1 = OPP(X).
-            - (X XOR Y) XOR Y = X
+  - When the sender and receiver use the same key for encryption/decryption
 
-        - The key is called 'pad'
-        - As the name implies, you should use a one-time pad just one time. If you use the same key k for plaintexts t_1 and t_2, then (t_1 XOR k) XOR (t_2 XOR k) = t_1 XOR t_2, which can reveal where the two two plaintexts have the same bits. 
+  - One-time pads
+    - If you apply `XOR` twice to `X` with same operand, then you will get `X` back.
+      - `X XOR 0 = X`, `X XOR 1 = OPP(X)`.
+      - `(X XOR Y) XOR Y = X`
 
-    - Block ciphers and chaining
-        - One-time pad need a key of equal lengths as the plaintext, which can be rather unwieldy.
-        - Instead of doing that, they use a shorter key, and they chop up the plaintext into several blocks, applying the key to each block in turn.
+    - Apply `XOR` to bits of the message you want to encrypt, with the encryption key of same length.
+    - Then decrypt by `XOR`-ing the encrypted bits with the same encryption key
+      - The key is called 'pad'
+        - As the name implies, you should use a one-time pad just once. If you use the same key k for plaintexts t_1 and t_2, then (t_1 XOR k) XOR (t_2 XOR k) = t_1 XOR t_2, which can reveal where the two two plaintexts have the same bits.
 
-        - AES: Uses elaborate methods to slice and dice a plaintext block to produce ciphertext.
+  - Block ciphers and chaining
+    - One-time pad need a key of equal lengths as the plaintext, which can be rather unwieldy.
 
-        - Cipher block chaining: If the same block appears twice in the plaintext, then the same encrypted block will appear twice in the ciphertext.
+    - Instead of doing that, they use a shorter key, and they chop up the plaintext into several blocks, applying the key to each block in turn.
 
-            - First, create the first block of ciphertext => c_1 = E(t_1)
-            - But before encrypting the second block, you XOR it, bit by bit, with c_1, so that
-                - c_2 = E(c_1 XOR c_2)
-            - For the 3rd, c_3 = E(c_2 XOR t_3)
-            - And so on. In general, you compute the i-th block of ciphertext based on the (i-1)st block of ciphertext and the i-th block of PLAINtext => c_i = E(c_i-1 XOR t_i).
+      - AES: Uses elaborate methods to slice and dice a plaintext block to produce ciphertext.
 
-            - To decrypt, I first compute t_1 = D(c_1). From c_1 to c_2, I can compute t_2 by first computing D(c_2), which equals c_1 XOR t_2, and then XORing the result with c_1.
+    - If the same block appears twice in the plaintext, then the same encrypted block will appear twice in the ciphertext.
+      - Cipher block chaining: Instead of naively encrypting every block with the same key, `XOR` each block with the encrypted previous block before applying the encryption.
+        - First, create the first block of ciphertext. `c_1 = E(t_1)`
+        - But before encrypting the second block, you `XOR` it, bit by bit, with `c_1`, so that
+          - `c_2 = E(c_1 XOR c_2)`
+          - For the 3rd, `c_3 = E(c_2 XOR t_3)`
+        - And so on. In general, you compute the `i`-th block of ciphertext based on the `(i-1)`st block of ciphertext and the `i`-th block of *plain*text => `c_i = E(c_i-1 XOR t_i)`.
 
-            - Still with block chaining, sending identical messages twice will generate the same sequence of ciphertext blocks each time.
-                - One solution for this would be not starting c_0 being all 0s. Instead, you randomly generate c_0, you use that when encrypting the first block of plaintext, and so on.
-                    - This c_0 is called "Initialization Vector".
+      - To decrypt, first compute `t_1 = D(c_1)`. From `c_1` to `c_2`, I can compute `t_2` by first computing `D(c_2)`, which equals `c_1 XOR t_2`, and then `XOR`ing the result with `c_1`.
+
+      - Still with block chaining, sending identical messages twice will generate the same sequence of ciphertext blocks each time.
+        - One solution for this would be not starting `c_0` being all `0`s. Instead, you randomly generate `c_0`, you use that when encrypting the first block of plaintext, and so on.
+          - This `c_0` is called **initialization vector**.
 
     - Agreeing on common information
-        - In order for symmetric-key cryptography to work, both the sender and receiver need to agree on the key. In addition, if they're using a block cipher with cipher block chaining, they might also need to agree on the initialization vector.
-        - Hybrid cryptosystem
+      - In order for symmetric-key cryptography to work, both the sender and receiver need to agree on the key. In addition, if they're using a block cipher with cipher block chaining, they might also need to agree on the initialization vector.
+      - Hybrid cryptosystem
 
-- Public-key cryptography
-    - t = F_S(F_P(t))
-        - In some cases, t = F_P(F_S(t)) might also be required, so that I encrypt plaintext with my secret key, anyone can decrypt the ciphertext.
+- Public-key cryptography: Encrypt with a *public* key and decrypt with a *secret* key.
+  - `t = F_S(F_P(t))`
+    - In some cases, `t = F_P(F_S(t))` might also be required, so that I encrypt plaintext with my secret key, anyone can decrypt the ciphertext.
 
-    - The time required to successfully guess my F_S without knowing my secret key should be prohibitively large for anyone else.
+  - The time required to successfully guess my `F_S` without knowing my secret key should be prohibitively large for anyone else.
 
-    - Although we would want F_P to produce a different ciphertext for each possible plaintext, instead we could allow, or even prefer the element of randomization where F_P(t_1) == F_P(t_2).
-        - The RSA is much more secure when the plaintext is only a small portion of what is encrypted, the bulk of the encrypted information being random "padding".
+  - Although we would want `F_P` to produce a different ciphertext for each possible plaintext, instead we could allow, or even prefer the element of randomization where the same plaintext is encrypted into different ciphertexts each time it's run through `F_P`.
+    - The RSA is much more secure when the plaintext is only a small portion of what is encrypted, the bulk of the encrypted information being random *padding*.
 
-    - Another issue is that the plaintext t could take on an arbitrary number of possible values - in fact, it could be arbitrarily long - and the number of ciphertext values that F_P could convert t has to be at least as many as the number of values that t could take on.
-        - Solution: block cipher
+  - Another issue is that the plaintext `t` could take on an arbitrary number of possible values - in fact, it could be arbitrarily long - and the number of ciphertext values that `F_P` could convert `t` has to be at least as many as the number of values that `t` could take on.
+    - Solution: block cipher
 
 - The RSA cryptosystem
-    - Modular arithmetic: We always divide by n and take the remainder.
+  - Modular arithmetic: We always divide by `n` and take the remainder.
     - The first property: If you have a number that is the product of two large secret prime numbers, then nobody else can determine these factors in any reasonable amount of time.
     - The second property: Even though factoring a large prime is hard, it's not hard to determine whether a large number is prime.
         - AKS primality test: the first algorithm to determine whether an n-bit number is prime in time O(n^c) for some constant c. Theoretically efficient, but	not yet practical for large numbers.
