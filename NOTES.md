@@ -45,20 +45,14 @@ Chapter 3. Algorithms for Sorting and Searching
 - If the array is sorted into nondecreasing order: binary search in only `O(lg n)` time
 - What do you mean when one element is less than another?
   - Numbers
-  - Lexicographic ordering
+  - Strings: Lexicographic ordering
+  - For other forms of data, need to define being 'less than'
 
 - Key: The data that we do the sorting over to get an order
   - Satellite data: The information associated with the key but not the one we base our sorting
 
-- Then how do we get the array to be sorted in the first place?
-  - Let's use sorting algorithms: `Theta(n^2)` or `Theta(n * lg n)` in worst case.
-    - Selection Sort
-    - Insertion Sort
-    - Merge Sort
-    - Quick Sort
-
 - Binary Search: [See the code.](https://link.iamblogger.net/mjw2d)
-  - The idea: Given an array/list of elements, check the index right in the middle to see if the key is bigger or smaller than the one you are looking for.
+  - The idea: Given an array/list of *sorted* elements, check the index right in the middle to see if the key is bigger or smaller than the one you are looking for.
     - If it's larger, then you can safely ignore the second half and only consider the first.
     - If smaller, you can discard the first half instead.
     - Continue checking the middle index to discard one of the two halves, until you get exactly the key you are looking for.
@@ -67,6 +61,13 @@ Chapter 3. Algorithms for Sorting and Searching
     - Loop invariant: At the start of each iteration of the loop, if `x` is anywhere in the array `A`, then it is somewhere in the subarray `A[p:r]`.
       - By the contrapositive of the loop variant above, we can see that if `x` is not in `A[p:r]`, then it's not in `A`.
   - Recursive version: [See the code.](https://link.iamblogger.net/1orvi)
+
+- Then how do we get the array to be sorted in the first place?
+  - Let's use sorting algorithms: `Theta(n^2)` or `Theta(n * lg n)` in worst case.
+    - Selection Sort
+    - Insertion Sort
+    - Merge Sort
+    - Quick Sort
 
 - Selection Sort: [See the code.](https://link.iamblogger.net/8zrxt)
   - The idea: Find the smallest among `A[i]` to `A[n]`, and put it in `A[i]`. Then increment `i` and repeat.
