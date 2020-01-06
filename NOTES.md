@@ -31,7 +31,9 @@ Chapter 2. How to Describe and Evaluate Computer Algorithms
   - **Big-Omega**: Lower-bounded
 - Use a loop invariant to prove correctness
   - **Loop invariant**: A statement or property that holds at the start of each loop iteration
-- **Recursion**
+    - Linear Search: At the beginning of each iteration, if `x` is present in the array `A`, then it is present in the subarray from `A[i]` to `A[n]`.
+      - To prove the appropriateness of returning `NOT-FOUND` when `x` is not in the array: Use contrapositive of the loop invariant. When `i > n`, the subarray `A[i:n]` cannot possibly contain `x`. Therefore, `x` is not in the array, and hence the algorithm appropriately returns `NOT-FOUND`.
+- **Recursion**: The technique of solving a problem by solving smaller instances of the same problem.
   - Base cases
   - Factorial
 
